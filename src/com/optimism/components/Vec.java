@@ -23,6 +23,12 @@ public class Vec extends Component {
 		return this;
 	}
 	
+	public double distance(Vec v){
+		
+		 return Math.sqrt( ((this.x - v.x) * (this.x - v.x)) + ((this.y - v.y) * (this.y - v.y)));
+		
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("(%f, %f)", x, y);

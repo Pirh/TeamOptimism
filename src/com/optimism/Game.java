@@ -15,6 +15,7 @@ import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.components.Position;
 import com.optimism.components.Velocity;
+import com.optimism.input.Input;
 import com.optimism.systems.MovementSystem;
 
 
@@ -26,7 +27,9 @@ public class Game extends Canvas {
 	private static Game game = new Game();
 	
 	private JFrame frame = new JFrame("Frame");
-
+	
+	private Input input = new Input();
+	
 	private Graphics2D g;
 	private BufferStrategy buffStrategy;
 	
@@ -78,6 +81,9 @@ public class Game extends Canvas {
 		
 		// The game has a World
 		world = new World();
+		
+		//Update input
+		input.update(frame);
 		
 		// The world has some systems.
 		world.setSystem(new MovementSystem());
