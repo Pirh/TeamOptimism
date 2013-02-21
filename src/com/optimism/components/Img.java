@@ -11,18 +11,18 @@ import javax.imageio.ImageIO;
 public class Img extends Component {
 
 	private BufferedImage sprite;
-	private HashMap<String,BufferedImage> cache;
+	private static HashMap<String,BufferedImage> cache;
 		
 	public Img(BufferedImage img) {
 		this.sprite = img;
 	}
 	public Img(String i) {
-			if (cache.containsKey(i)){
-				sprite = cache.get(i);
+			if (Img.cache.containsKey(i)){
+				sprite = Img.cache.get(i);
 			}else{
 				try{
 					sprite = ImageIO.read(new File(i));
-					cache.put(i, sprite);
+					Img.cache.put(i, sprite);
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
