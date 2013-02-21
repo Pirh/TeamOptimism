@@ -113,11 +113,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		// We initialise it after we make all the systems
 		world.initialize();
 		
-		// We make the player
-		Factory.makeShipCircle(world, 2, 250);
-		Factory.makeShip(world, new Position(400,100), new Size(48,48), "res/player-ship.png", false);
-		// And the orbit
-		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
+		makeEntities();
 
 		//Tells frame to listen for all input events.
 		this.addKeyListener(this);
@@ -126,7 +122,11 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 	}
 	
-	
+	public void makeEntities() {
+		Factory.makeBlackHole(world, 150);
+		Factory.makeShipCircle(world, 2, 250);
+		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
+	}
 	
 	public void run() {
 		timeLast = System.nanoTime();
