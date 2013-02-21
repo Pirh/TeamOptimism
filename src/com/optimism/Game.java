@@ -34,6 +34,7 @@ public class Game extends Canvas {
 	private int frameHeight = 600;
 	
 	private World world;
+	private Entity player;
 	
 	
 	public static void main(String[] args) {
@@ -82,16 +83,11 @@ public class Game extends Canvas {
 		// The world has some systems.
 		world.setSystem(new MovementSystem());
 		
-		// We initialize it after we make all the systems
+		// We initialise it after we make all the systems
 		world.initialize();
 		
-		// We make an entity
-		Entity ship = world.createEntity();
-		// Add some components to it
-		ship.addComponent(new Position(400,300));
-		ship.addComponent(new Velocity(10,10));
-		// This adds the ship into the world
-		ship.addToWorld();
+		// We make the player
+		player = Factory.makeShip(world, new Position(400,300));
 	}
 	
 	

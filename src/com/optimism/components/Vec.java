@@ -2,6 +2,7 @@ package com.optimism.components;
 
 import com.artemis.Component;
 
+
 public class Vec extends Component {
 
 	public double x;
