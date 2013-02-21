@@ -1,5 +1,8 @@
 package com.optimism;
 
+import com.optimism.components.Vec;
+
+
 public class Projector {
 
 	public static double gameWidth = 800;

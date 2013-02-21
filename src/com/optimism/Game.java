@@ -14,14 +14,12 @@ import javax.swing.JPanel;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.components.Position;
-import com.optimism.components.Velocity;
 import com.optimism.systems.MovementSystem;
+import com.optimism.systems.RenderSystem;
 
 
 
 public class Game extends Canvas {
-	
-	
 	
 	private static Game game = new Game();
 	
@@ -71,6 +69,8 @@ public class Game extends Canvas {
 		createBufferStrategy(2);
 		buffStrategy = getBufferStrategy();
 		
+		Projector.initialize(frameWidth, frameHeight);
+		
 		g = (Graphics2D) buffStrategy.getDrawGraphics();
 		
 		
@@ -82,12 +82,13 @@ public class Game extends Canvas {
 		
 		// The world has some systems.
 		world.setSystem(new MovementSystem());
+		world.setSystem(new RenderSystem(g));
 		
 		// We initialise it after we make all the systems
 		world.initialize();
 		
 		// We make the player
-		player = Factory.makeShip(world, new Position(400,300));
+		player = Factory.makeShip(world, new Position(400,300), "res/player-ship.png");
 	}
 	
 	
