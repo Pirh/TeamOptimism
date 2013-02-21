@@ -8,6 +8,7 @@ import com.optimism.components.Controllable;
 import com.optimism.components.Damage;
 import com.optimism.components.Img;
 import com.optimism.components.OrbitRing;
+import com.optimism.components.Orientation;
 import com.optimism.components.Position;
 import com.optimism.components.Size;
 import com.optimism.components.Vec;
@@ -39,8 +40,10 @@ public class Factory {
 		ship.addComponent(size);
 		ship.addComponent(new Velocity(0,0));
 		ship.addComponent(img);
-		ship.addComponent(simpleBody(size.x/2));
+		ship.addComponent(simpleBody(size.x*0.375));
 		ship.addComponent(new Weapon(Settings.firingRate));
+		Orientation ori = new Orientation(0);
+		ship.addComponent(ori);
 		if (isPlayer) {
 			ship.addComponent(Controllable.FLAG);
 		}
@@ -67,6 +70,7 @@ public class Factory {
 		bullet.addComponent(new Size(16,16));
 		bullet.addComponent(new Img(image));
 		bullet.addComponent(new Damage(damage));
+		bullet.addComponent(new Orientation(vel.angle()));
 		bullet.addToWorld();
 		return bullet;
 	}

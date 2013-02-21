@@ -68,6 +68,10 @@ public class Vec extends Component {
 		return this;
 	}
 	
+	public double angle() {
+		return Math.acos( this.x / this.copy().length() ) * Math.signum(this.y);
+	}
+	
 	public double dot(Vec other) {
 		return this.x * other.x + this.y * other.y;
 	}

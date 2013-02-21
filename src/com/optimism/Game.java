@@ -124,7 +124,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	
 	public void run() {
-		
+		timeLast = System.nanoTime();
 		while (true) {
 			
 			clear();
