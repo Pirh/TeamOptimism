@@ -11,10 +11,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.artemis.Entity;
 import com.artemis.World;
-import com.optimism.components.Position;
-import com.optimism.components.Size;
 import com.optimism.input.Input;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.RenderSystem;
@@ -38,7 +35,6 @@ public class Game extends Canvas {
 	private float delta = 0;
 	
 	private World world;
-	private Entity player;
 	
 	
 	public static void main(String[] args) {
@@ -98,7 +94,7 @@ public class Game extends Canvas {
 		world.initialize();
 		
 		// We make the player
-		player = Factory.makeShip(world, new Position(400,300), new Size(64,64), "res/player-ship.png");
+		Factory.makeShipCircle(world, 12, 250);
 	}
 	
 	
