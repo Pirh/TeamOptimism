@@ -10,6 +10,7 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.optimism.Projector;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
+import com.optimism.components.Size;
 import com.optimism.tools.Tuple2Int;
 
 
@@ -19,19 +20,24 @@ public class RenderSystem extends EntityProcessingSystem {
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Img> imm;
+	@Mapper ComponentMapper<Size> sm;
+	
 	
 	@SuppressWarnings("unchecked")
 	public RenderSystem(Graphics2D graphics) {
-		super(Aspect.getAspectForAll(Position.class, Img.class));
+		super(Aspect.getAspectForAll(Position.class, Img.class, Size.class));
 		this.graphics = graphics;
 	}
 	
 	@Override
 	public void process(Entity entity) {
 		Position pos = pm.get(entity);
+		Size size = sm.get(entity);
 		Img imComp = imm.get(entity);
-		Tuple2Int spos = Projector.positionToScreen(pos);
-		graphics.drawImage(imComp.sprite, spos.getX(), spos.getY(), null);
+		Tuple2Int screenPos = Projector.worldToScreen(pos);
+		Tuple2Int screenSize = Projector.worldToScreen(size);
+		// Image, x, y, width, height, ImageObserver
+		graphics.drawImage(imComp.sprite, screenPos.getX(), screenPos.getY(), screenSize.getX(), screenSize.getY(), null);
 	}
 	
 }

@@ -6,6 +6,7 @@ import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
 import com.optimism.components.Position;
+import com.optimism.components.Vec;
 import com.optimism.components.Velocity;
 
 @SuppressWarnings("unchecked")
@@ -21,9 +22,10 @@ public class MovementSystem extends EntityProcessingSystem {
 	
 	@Override
 	public void process(Entity entity) {
+		float dt = world.getDelta();
 		Position pos = pm.get(entity);  // Get the position of an entity
 		Velocity vel = vm.get(entity);  // Get the velocity of an entity
-		pos.add(vel);					// Straight up add the velocity to the position
+		pos.add(new Vec(vel).mul(dt));	// Add velocity * deltaTime
 	}
 	
 }

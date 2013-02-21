@@ -114,6 +114,9 @@ public class Game extends Canvas {
 			delta = (float) ((timeCurrent - timeLast) / 1000000000);
 			timeLast = timeCurrent;
 			
+			// Set the delta
+			world.setDelta(delta);
+
 			// Runs all the systems
 			world.process();
 			System.out.println(delta);

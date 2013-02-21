@@ -31,4 +31,13 @@ public class Factory {
 		return ship;		
 	}
 	
+	/** Makes a circle of ships. */
+	public static void makeShipCircle(int n, double distance) {
+		double angle = (2*Math.PI) / n;
+		Vec stretch = new Vec(0,distance);
+		for (int i=0; i<n; i++) {
+			
+		}
+	}
+	
 }

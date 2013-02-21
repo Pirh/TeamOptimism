@@ -15,6 +15,8 @@ public class Projector {
 	public static double widthRatio;
 	public static double heightRatio;
 	
+	public static final Vec centre = new Vec(gameWidth/2, gameHeight/2);
+	
 	public static void initialize(int width, int height) {
 		screenWidth = width;
 		screenHeight = height;
@@ -23,7 +25,7 @@ public class Projector {
 	}
 	
 	// Takes a Position vector and returns screen coordinates for drawing.
-	public static Tuple2Int positionToScreen(Vec pos) {
+	public static Tuple2Int worldToScreen(Vec pos) {
 		return new Tuple2Int((int) (pos.x*widthRatio), (int) (pos.y*heightRatio));
 	}
 	
