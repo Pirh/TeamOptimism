@@ -38,9 +38,9 @@ public class Factory {
 	/** Makes a circle of ships. */
 	public static void makeShipCircle(World world, int n, double distance) {
 		double angle = (2*Math.PI) / n;
-		Vec stretch = new Vec(0,distance);
+		Vec stretch = new Vec(0,Arena.circleRadius);
 		for (int i=0; i<n; i++) {
-			Vec pos = new Vec(Projector.centre).add(stretch);
+			Vec pos = new Vec(Arena.circleCentre).add(stretch);
 			makeShip(world, new Position(pos), new Size(64,64), "res/player-ship.png", true);
 			stretch.rotate(angle);
 		}

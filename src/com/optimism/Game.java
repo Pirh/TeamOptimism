@@ -98,7 +98,7 @@ public class Game extends Canvas {
 		world.initialize();
 		
 		// We make the player
-		Factory.makeShipCircle(world, 12, 250);
+		Factory.makeShipCircle(world, 2, 250);
 	}
 	
 	
