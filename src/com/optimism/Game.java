@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.components.Position;
+import com.optimism.input.Input;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.RenderSystem;
-
 
 
 public class Game extends Canvas {
@@ -24,7 +24,9 @@ public class Game extends Canvas {
 	private static Game game = new Game();
 	
 	private JFrame frame = new JFrame("Frame");
-
+	
+	private Input input = new Input();
+	
 	private Graphics2D g;
 	private BufferStrategy buffStrategy;
 	
@@ -73,9 +75,11 @@ public class Game extends Canvas {
 		
 		g = (Graphics2D) buffStrategy.getDrawGraphics();
 		
-		
 		//Centre frame.
 		frame.setLocationRelativeTo(null);
+		
+		//Update input
+		input.update(frame);
 		
 		// The game has a World
 		world = new World();
@@ -88,7 +92,7 @@ public class Game extends Canvas {
 		world.initialize();
 		
 		// We make the player
-		player = Factory.makeShip(world, new Position(400,300), "res/player-ship.png");
+		player = Factory.makeShip(world, new Position(400,300), new Size(64,64), "res/player-ship.png");
 	}
 	
 	

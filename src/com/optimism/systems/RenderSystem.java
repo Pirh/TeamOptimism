@@ -10,6 +10,7 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.optimism.Projector;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
+import com.optimism.tools.Tuple2Int;
 
 
 public class RenderSystem extends EntityProcessingSystem {
