@@ -37,7 +37,7 @@ public class Factory {
 		Vec stretch = new Vec(0,distance);
 		for (int i=0; i<n; i++) {
 			Vec pos = new Vec(Projector.centre).add(stretch);
-			makeShip(world, new Position(pos), new Size(64,64), "player-ship.png");
+			makeShip(world, new Position(pos), new Size(64,64), "res/player-ship.png");
 			stretch.rotate(angle);
 		}
 	}

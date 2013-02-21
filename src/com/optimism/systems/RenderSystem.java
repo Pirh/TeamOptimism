@@ -37,7 +37,7 @@ public class RenderSystem extends EntityProcessingSystem {
 		Tuple2Int screenPos = Projector.worldToScreen(pos);
 		Tuple2Int screenSize = Projector.worldToScreen(size);
 		// Image, x, y, width, height, ImageObserver
-		graphics.drawImage(imComp.sprite, screenPos.getX(), screenPos.getY(), screenSize.getX(), screenSize.getY(), null);
+		graphics.drawImage(imComp.sprite, screenPos.getX() - screenSize.getX()/2, screenPos.getY() - screenSize.getY()/2, screenSize.getX(), screenSize.getY(), null);
 	}
 	
 }
