@@ -7,7 +7,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
-import com.optimism.Arena;
+import com.optimism.Settings;
 import com.optimism.components.Controllable;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
@@ -28,16 +28,17 @@ public class PlayerControlSystem extends EntityProcessingSystem {
 	
 	@Override
 	public void process(Entity entity) {
-		double dTheta = world.getDelta();
+		double dTheta = 0;
 		if (input.isKeyDown(KeyEvent.VK_LEFT)) {
-			dTheta = 0.2;
+			dTheta = -1;
 		} else if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
-			dTheta = -0.2;
+			dTheta = 1;
 		}
+		dTheta *= world.getDelta() * Settings.moveSpeed;
 		Position pos = pm.get(entity);
-		Vec stretch = pos.copy().sub(Arena.circleCentre);
+		Vec stretch = pos.copy().sub(Settings.circleCentre);
 		stretch.rotate(dTheta);
-		pos.set(Arena.circleCentre).add(stretch);
+		pos.set(Settings.circleCentre).add(stretch);
 	}
 
 }

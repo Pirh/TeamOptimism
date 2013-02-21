@@ -17,13 +17,16 @@ import javax.swing.JPanel;
 
 import com.artemis.World;
 import com.optimism.components.Img;
+import com.optimism.components.Position;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
 import com.optimism.systems.DebugBodySystem;
 import com.optimism.systems.DebugInputSystem;
 import com.optimism.systems.MovementSystem;
+import com.optimism.systems.OrbitRenderSystem;
 import com.optimism.systems.PlayerControlSystem;
+import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
 import com.optimism.tools.Tool;
 
@@ -97,8 +100,10 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		// The world has some systems.
 		world.setSystem(new PlayerControlSystem(input));
+		world.setSystem(new PlayerFiringSystem(input));
 		world.setSystem(new MovementSystem());
 		world.setSystem(new CollisionSystem());
+		world.setSystem(new OrbitRenderSystem(g));
 		world.setSystem(new RenderSystem(g));
 		world.setSystem(new DebugBodySystem(g, input));
 		world.setSystem(new DebugInputSystem(g, input));
@@ -108,6 +113,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		// We make the player
 		Factory.makeShipCircle(world, 2, 250);
+		// And the orbit
+		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
 
 		//Tells frame to listen for all input events.
 		this.addKeyListener(this);
