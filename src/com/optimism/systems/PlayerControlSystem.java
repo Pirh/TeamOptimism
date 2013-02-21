@@ -9,6 +9,7 @@ import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
 import com.optimism.Settings;
 import com.optimism.components.Controllable;
+import com.optimism.components.Orientation;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
 import com.optimism.input.Input;
@@ -19,6 +20,7 @@ public class PlayerControlSystem extends EntityProcessingSystem {
 	private Input input;
 	
 	@Mapper ComponentMapper<Position> pm;
+	@Mapper ComponentMapper<Orientation> om;
 	
 	@SuppressWarnings("unchecked")
 	public PlayerControlSystem(Input input) {
@@ -39,6 +41,11 @@ public class PlayerControlSystem extends EntityProcessingSystem {
 		Vec stretch = pos.copy().sub(Settings.circleCentre);
 		stretch.rotate(dTheta);
 		pos.set(Settings.circleCentre).add(stretch);
+		
+		Orientation ori = om.getSafe(entity);
+		if (ori != null) {
+			ori.angle = Math.PI + stretch.angle();
+		}
 	}
 
 }
