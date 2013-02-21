@@ -8,6 +8,8 @@ import com.artemis.annotations.Mapper;
 import com.artemis.utils.ImmutableBag;
 import com.optimism.collision.Col;
 import com.optimism.components.Body;
+import com.optimism.components.Damage;
+import com.optimism.components.Health;
 import com.optimism.components.Position;
 
 
@@ -15,6 +17,8 @@ public class CollisionSystem extends EntitySystem {
 
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Body> bm;
+	@Mapper ComponentMapper<Health> hm;
+	@Mapper ComponentMapper<Damage> dm;
 	
 	
 	@SuppressWarnings("unchecked")
@@ -60,8 +64,30 @@ public class CollisionSystem extends EntitySystem {
 	
 	
 	
-	protected void collide(Entity entity, Entity entity2) {
-		//Collide here!
+	protected void collide(Entity e1, Entity e2) {
+
+		if(hm.getSafe(e1) != null){
+			
+			if(dm.getSafe(e2) != null){
+				
+				hm.get(e1).lose(dm.get(e2).damage);
+				e2.deleteFromWorld();
+				
+			}
+			
+		}
+
+		if(hm.getSafe(e2) != null){
+			
+			if(dm.getSafe(e1) != null){
+				
+				hm.get(e2).lose(dm.get(e1).damage);
+				e1.deleteFromWorld();
+				
+			}
+			
+		}
+		
 	}
 	
 	

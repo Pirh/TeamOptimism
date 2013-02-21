@@ -2,6 +2,7 @@ package com.optimism;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,7 +19,6 @@ import javax.swing.JPanel;
 import com.artemis.World;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
-import com.optimism.components.Size;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -48,8 +48,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	private int frameWidth = 800;
 	private int frameHeight = 600;
-	private double timeCurrent = 0;
-	private double timeLast = 0;
+	private double timeCurrent = System.nanoTime();
+	private double timeLast = System.nanoTime();
 	private float delta = 0;
 	
 	private Img background = new Img("res/background.png");
@@ -95,6 +95,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		Projector.initialize(frameWidth, frameHeight);
 		
 		g = (Graphics2D) buffStrategy.getDrawGraphics();
+		g.setFont(new Font("courier", 0, 12));
+		g.drawString("Loading...", 400, 300);
 		
 		//Centre frame.
 		frame.setLocationRelativeTo(null);
@@ -129,12 +131,12 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	public void makeEntities() {
 		Factory.makeBlackHole(world, 150);
-		Factory.makeShipCircle(world, 2, 250);
+		Factory.makeShipCircle(world, 3, 250);
 		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
 	}
 	
 	public void run() {
-		timeLast = System.nanoTime();
+		
 		while (true) {
 			
 			clear();
