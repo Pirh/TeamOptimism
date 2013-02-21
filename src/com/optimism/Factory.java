@@ -20,13 +20,13 @@ import com.optimism.components.Weapon;
 public class Factory {
 	
 	public static Entity playerShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(48,48), "res/player-ship.png", 10, 1, true);
+		return makeShip(world, pos, new Size(48,48), "res/player-ship.png", 0.0, 10, 1, true);
 	}
 	public static Entity playerBullet(World world, Position pos, Velocity vel) {
 		return makeBullet(world, pos, vel, "res/player-bullet.png", 6, 1, Body.Team.ALLY);
 	}
 	public static Entity enemyBlueShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", 12, 3, false);
+		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", -16.0, 12, 3, false);
 	}
 	
 	
@@ -58,7 +58,7 @@ public class Factory {
 	}
 
 	/** Makes a ship. No it really honestly does. */
-	public static Entity makeShip(World world, Position pos, Size size, String imageName, double radius, int health, boolean isPlayer) {
+	public static Entity makeShip(World world, Position pos, Size size, String imageName, double spin, double radius, int health, boolean isPlayer) {
 		Entity ship = world.createEntity();
 		Img img = new Img(imageName);
 		ship.addComponent(pos);
@@ -69,7 +69,7 @@ public class Factory {
 		ship.addComponent(simpleBody(radius, team));
 		ship.addComponent(new Health(health));
 		ship.addComponent(new Weapon(Settings.firingRate));
-		Orientation ori = new Orientation(0);
+		Orientation ori = new Orientation(0, spin);
 		ship.addComponent(ori);
 		if (isPlayer) {
 			ship.addComponent(Controllable.FLAG);
