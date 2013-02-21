@@ -31,6 +31,18 @@ public class Factory {
 		ring.addToWorld();
 		return ring;
 	}
+	
+	/** Makes the black hole */
+	public static Entity makeBlackHole(World world, double radius) {
+		Entity hole = world.createEntity();
+		hole.addComponent(new Position(Settings.circleCentre));
+		hole.addComponent(new Velocity(0,0));
+		hole.addComponent(new Size(radius*2, radius*2));
+		hole.addComponent(new Orientation(0, 0.1));
+		hole.addComponent(new Img("res/wormhole.png"));
+		hole.addToWorld();
+		return hole;
+	}
 
 	/** Makes a ship. No it really honestly does. */
 	public static Entity makeShip(World world, Position pos, Size size, String imageName, boolean isPlayer) {
