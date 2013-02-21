@@ -36,17 +36,17 @@ public class CollisionSystem extends EntitySystem {
 	
 	@Override
 	protected void processEntities(ImmutableBag<Entity> entities) {
-		/*
+		
 		for(int i1 = 0; i1 < entities.size(); i1++){
 			
 			for(int i2 = i1 + 1; i2 < entities.size(); i2++){
 				
-				Col.detect(b1, b2)
+				Col.detect(bm.get(entities.get(i1)), pm.get(entities.get(i1)), bm.get(entities.get(i2)), pm.get(entities.get(i2)));
 				
 			}
 			
 		}
-		*/
+		
 	}	
 	
 	
