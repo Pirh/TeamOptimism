@@ -5,14 +5,13 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
-import com.optimism.Settings;
 import com.optimism.Factory;
+import com.optimism.Settings;
 import com.optimism.components.Controllable;
 import com.optimism.components.Position;
 import com.optimism.components.Velocity;
 import com.optimism.components.Weapon;
 import com.optimism.input.Input;
-import com.optimism.tools.Tool;
 
 
 public class PlayerFiringSystem extends EntityProcessingSystem {

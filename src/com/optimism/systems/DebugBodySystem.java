@@ -9,7 +9,6 @@ import com.optimism.components.Body;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
 import com.optimism.input.Input;
-import com.optimism.tools.Tool;
 
 
 public class DebugBodySystem extends CollisionSystem {
@@ -28,34 +27,40 @@ public class DebugBodySystem extends CollisionSystem {
 	@Override
 	protected void processEntities(ImmutableBag<Entity> entities) {
 		
-		super.processEntities(entities);
-
-		for(int i1 = 0; i1 < entities.size(); i1++){
+		if(input.isKeyToggle(113)){
+		
+			for(int i1 = 0; i1 < entities.size(); i1++){
 			
-			Entity entity = entities.get(i1);
-			Body body = entity.getComponent(Body.class);
+				Entity entity = entities.get(i1);
+				Body body = entity.getComponent(Body.class);
 			
-			for(int i2 = 0; i2 < body.getSize(); i2++){
+				for(int i2 = 0; i2 < body.getSize(); i2++){
 
-				Vec vec = body.getCircle(i2).loc.copy().add(entity.getComponent(Position.class));
-				double rad = body.getCircle(i2).rad;
+					Vec vec = body.getCircle(i2).loc.copy().add(entity.getComponent(Position.class));
+					double rad = body.getCircle(i2).rad;
+					
+					g.setColor(Color.GREEN);
+					g.fillOval(
+							(int)(vec.x - rad),
+							(int)(vec.y - rad),
+							(int)rad*2,
+							(int)rad*2
+					);
 				
-				g.setColor(Color.GREEN);
-				g.drawOval(
-					(int)(vec.x - (rad / 2)),
-					(int)(vec.y - (rad / 2)),
-					(int)rad,
-					(int)rad);
-				
+				}
+			
 			}
-			
 		}
+
+		super.processEntities(entities);
 		
 	}
 	
 	@Override
 	public void collide(Entity e1, Entity e2) {
 		
+		if(input.isKeyToggle(113)){
+			
 			Body body = e1.getComponent(Body.class);
 			
 			for(int i = 0; i < body.getSize(); i++){
@@ -64,15 +69,15 @@ public class DebugBodySystem extends CollisionSystem {
 				double rad = body.getCircle(i).rad;
 				
 				g.setColor(Color.RED);
-				g.drawOval(
-					(int)(vec.x - (rad / 2)),
-					(int)(vec.y - (rad / 2)),
-					(int)rad,
-					(int)rad
+				g.fillOval(
+					(int)(vec.x - rad),
+					(int)(vec.y - rad),
+					(int)rad*2,
+					(int)rad*2
 				);
 			
 			}
-		
+		}
 	}
 	
 }

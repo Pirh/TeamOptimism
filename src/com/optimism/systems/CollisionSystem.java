@@ -9,7 +9,6 @@ import com.artemis.utils.ImmutableBag;
 import com.optimism.collision.Col;
 import com.optimism.components.Body;
 import com.optimism.components.Position;
-import com.optimism.tools.Tool;
 
 
 public class CollisionSystem extends EntitySystem {
