@@ -6,13 +6,15 @@ import com.optimism.collision.Circle;
 
 public class Body extends Component {
 	
-	
+	public enum Team {
+		ALLY, ENEMY
+	}
 	
 	public Circle[] bodies;
 	
 	
 	
-	public Body(Circle... bodies){
+	public Body(Team team, Circle... bodies){
 		
 		this.bodies = bodies;
 		

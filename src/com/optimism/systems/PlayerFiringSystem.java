@@ -33,7 +33,7 @@ public class PlayerFiringSystem extends EntityProcessingSystem {
 		if (input.isKeyDown(32) && wep.ready()) {
 			Position pos = pm.get(entity);
 			Velocity vel = new Velocity(Settings.circleCentre.copy().sub(pos).normalize().mul(Settings.bulletSpeed));
-			Factory.makeBullet(world, new Position(pos), vel, "res/player-bullet.png", 1);
+			Factory.playerBullet(world, new Position(pos), vel);
 			wep.fired();
 		}
 		wep.reload(world.getDelta());

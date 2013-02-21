@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import com.artemis.World;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
-import com.optimism.components.Size;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -130,6 +129,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	public void makeEntities() {
 		Factory.makeBlackHole(world, 150);
 		Factory.makeShipCircle(world, 2, 250);
+		Factory.enemyBlueShip(world, new Position(400,400));
 		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
 	}
 	
