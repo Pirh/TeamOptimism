@@ -9,6 +9,7 @@ import com.artemis.utils.ImmutableBag;
 import com.optimism.collision.Col;
 import com.optimism.components.Body;
 import com.optimism.components.Position;
+import com.optimism.tools.Tool;
 
 
 public class CollisionSystem extends EntitySystem {
@@ -41,13 +42,24 @@ public class CollisionSystem extends EntitySystem {
 			
 			for(int i2 = i1 + 1; i2 < entities.size(); i2++){
 				
-				Col.detect(bm.get(entities.get(i1)), pm.get(entities.get(i1)), bm.get(entities.get(i2)), pm.get(entities.get(i2)));
+				boolean collided = Col.detect(bm.get(entities.get(i1)), pm.get(entities.get(i1)), bm.get(entities.get(i2)), pm.get(entities.get(i2)));
+				
+				if(collided){
+					collide(entities.get(i1), entities.get(i2));
+				}
 				
 			}
 			
 		}
 		
-	}	
+	}
+	
+	
+	
+	private void collide(Entity entity, Entity entity2) {
+		//Collide here!
+	}
+	
 	
 	
 }
