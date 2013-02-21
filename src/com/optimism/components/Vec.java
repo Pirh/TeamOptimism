@@ -18,6 +18,12 @@ public class Vec extends Component {
 		this.y = vec.y;
 	}
 	
+	public Vec set(Vec vec) {
+		this.x = vec.x;
+		this.y = vec.y;
+		return this;
+	}
+	
 	public Vec add(Vec other) {
 		this.x += other.x;
 		this.y += other.y;

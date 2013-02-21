@@ -1,7 +1,6 @@
 package com.optimism;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -17,13 +16,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.artemis.World;
-import com.optimism.components.Position;
-import com.optimism.components.Size;
+import com.optimism.components.Img;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
 import com.optimism.systems.DebugInputSystem;
 import com.optimism.systems.MovementSystem;
+import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.RenderSystem;
 import com.optimism.tools.Tool;
 
@@ -45,6 +44,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	private double timeCurrent = 0;
 	private double timeLast = 0;
 	private float delta = 0;
+	
+	private Img background = new Img("res/background.png");
 	
 	private World world;
 	
@@ -94,6 +95,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world = new World();
 		
 		// The world has some systems.
+		world.setSystem(new PlayerControlSystem(input));
 		world.setSystem(new MovementSystem());
 		world.setSystem(new CollisionSystem());
 		world.setSystem(new RenderSystem(g));
@@ -103,7 +105,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world.initialize();
 		
 		// We make the player
-		Factory.makeShipCircle(world, 12, 250);
+		Factory.makeShipCircle(world, 2, 250);
 
 		//Tells frame to listen for all input events.
 		this.addKeyListener(this);
@@ -152,8 +154,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	public void clear(){
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, frameWidth, frameHeight);
+		g.drawImage(background.sprite, 0, 0, null);
 		
 	}
 	
