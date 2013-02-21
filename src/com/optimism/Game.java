@@ -33,6 +33,9 @@ public class Game extends Canvas {
 	
 	private int frameWidth = 800;
 	private int frameHeight = 600;
+	private double timeCurrent = 0;
+	private double timeLast = 0;
+	private float delta = 0;
 	
 	private World world;
 	private Entity player;
@@ -80,7 +83,9 @@ public class Game extends Canvas {
 		frame.setLocationRelativeTo(null);
 		
 		//Update input
-		input.update(frame);
+		try {
+			input.update(frame);
+		} catch (Exception e) {}
 		
 		// The game has a World
 		world = new World();
@@ -104,15 +109,22 @@ public class Game extends Canvas {
 			
 			clear();
 			
+			//Delta Stuff 1
+			timeCurrent = System.nanoTime();
+			delta = (float) ((timeCurrent - timeLast) / 1000000000);
+			timeLast = timeCurrent;
+			
 			// Set the delta
-			world.setDelta(0.016f);
+			world.setDelta(delta);
+
 			// Runs all the systems
 			world.process();
+			System.out.println(delta);
 			
 			buffStrategy.show();
 			
 			try {
-				Thread.sleep(16);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {}
 			
 		}

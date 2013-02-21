@@ -1,0 +1,56 @@
+input.isKeyDown
+takes int
+returns true/false
+
+input.isKeyDownMod
+takes Tuple2Int
+returns true/false
+
+input.isKeyHit
+takes int
+returns true/false
+
+input.isKeyHitMod
+takes Tuple2Int
+returns true/false
+
+input.isKeyDownAny
+returns true/false
+
+input.isKeyToggle
+takes int
+returns true/false
+
+input.isKeyTogglable
+takes int
+returns true/false
+
+
+input.getKeyDown
+returns string
+
+input.getKeyDownMod
+returns string
+
+input.getKeyHit
+returns string
+
+input.getKeyHitMod
+returns string
+
+input.getKeyToggle
+returns string
+
+
+input.isMouseEnter
+returns true/false
+
+input.isMouseDown
+takes int
+returns true/false
+
+input.getMousePos
+returns Tuple2Int
+
+input.getMouseDown
+returns string

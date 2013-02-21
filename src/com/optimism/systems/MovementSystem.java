@@ -26,7 +26,6 @@ public class MovementSystem extends EntityProcessingSystem {
 		Position pos = pm.get(entity);  // Get the position of an entity
 		Velocity vel = vm.get(entity);  // Get the velocity of an entity
 		pos.add(new Vec(vel).mul(dt));	// Add velocity * deltaTime
-		System.out.println(pos);
 	}
 	
 }
