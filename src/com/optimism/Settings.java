@@ -8,7 +8,10 @@ public class Settings {
 	public static final double circleRadius = 240;
 	
 	public static final double moveSpeed = 1.5;
-	public static final double bulletSpeed = 500;
-	public static final double firingRate = 0.2;
-	
+	public static final double bulletSpeed = 400;
+	public static final double firingRate = 0.4;
+	public static final double enemySpeed = 25;
+	public static final double spawnRadius = 100;
+	public static final double spawnRate = 0.02;
+
 }

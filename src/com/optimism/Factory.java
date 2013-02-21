@@ -1,5 +1,7 @@
 package com.optimism;
 
+import java.util.Random;
+
 import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.collision.Circle;
@@ -26,9 +28,34 @@ public class Factory {
 		return makeBullet(world, pos, vel, "res/player-bullet.png", 6, 1, Body.Team.ALLY);
 	}
 	public static Entity enemyBlueShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", -16.0, 12, 3, false);
+		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", -16.0, 12, 2, false);
+	}
+	public static Entity enemyRedShip(World world, Position pos) {
+		return makeShip(world, pos, new Size(48,48), "res/enemy-red.png", -24.0, 16, 4, false);
 	}
 	
+	
+	private static Entity randomEnemyKind(World world) {
+		Random r = new Random();
+		int enemyKind = r.nextInt(2);
+		double randAngle = r.nextFloat()*Math.PI*2;
+		double randRadius = r.nextFloat()*Settings.spawnRadius;
+		Position pos = new Position(Settings.circleCentre.copy().add(new Vec(0,randRadius).rotate(randAngle)));
+		Entity enemy;
+		switch (enemyKind) {
+		case 1: enemy = enemyRedShip(world, pos); break;
+		default: enemy = enemyBlueShip(world, pos); break;
+		}
+		return enemy;
+	}
+	public static Entity randomEnemy(World world) {
+		Random r = new Random();
+		Entity enemy = randomEnemyKind(world);
+		double randAngle = r.nextFloat()*Math.PI*2;
+		Velocity vel = new Velocity(new Vec(0,Settings.enemySpeed).rotate(randAngle));
+		enemy.addComponent(vel);
+		return enemy;
+	}
 	
 	
 	public static Body simpleBody(double radius, Body.Team team) {
@@ -53,6 +80,8 @@ public class Factory {
 		hole.addComponent(new Size(radius*2, radius*2));
 		hole.addComponent(new Orientation(0, 0.1));
 		hole.addComponent(new Img("res/wormhole.png"));
+		hole.addComponent(new Health(1<<30));
+		hole.addComponent(simpleBody(8, Body.Team.ENEMY));
 		hole.addToWorld();
 		return hole;
 	}

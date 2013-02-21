@@ -25,6 +25,7 @@ import com.optimism.systems.CollisionSystem;
 import com.optimism.systems.DebugBodySystem;
 import com.optimism.systems.DebugFrameSystem;
 import com.optimism.systems.DebugInputSystem;
+import com.optimism.systems.EnemySpawnSystem;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.OrbitRenderSystem;
 import com.optimism.systems.PlayerControlSystem;
@@ -111,6 +112,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world.setSystem(new MovementSystem());
 		world.setSystem(new CollisionSystem());
 		world.setSystem(new OrbitRenderSystem(g));
+		world.setSystem(new EnemySpawnSystem());
 		world.setSystem(new RenderSystem(g));
 		world.setSystem(new DebugBodySystem(g, input));
 		world.setSystem(new DebugInputSystem(g, input));
