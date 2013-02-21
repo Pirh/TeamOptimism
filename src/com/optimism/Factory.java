@@ -32,11 +32,13 @@ public class Factory {
 	}
 	
 	/** Makes a circle of ships. */
-	public static void makeShipCircle(int n, double distance) {
+	public static void makeShipCircle(World world, int n, double distance) {
 		double angle = (2*Math.PI) / n;
 		Vec stretch = new Vec(0,distance);
 		for (int i=0; i<n; i++) {
-			
+			Vec pos = new Vec(Projector.centre).add(stretch);
+			makeShip(world, new Position(pos), new Size(64,64), "player-ship.png");
+			stretch.rotate(angle);
 		}
 	}
 	
