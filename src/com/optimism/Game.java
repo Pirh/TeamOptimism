@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.components.Position;
+import com.optimism.components.Size;
 import com.optimism.input.Input;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.RenderSystem;
@@ -103,6 +104,8 @@ public class Game extends Canvas {
 			
 			clear();
 			
+			// Set the delta
+			world.setDelta(0.016f);
 			// Runs all the systems
 			world.process();
 			

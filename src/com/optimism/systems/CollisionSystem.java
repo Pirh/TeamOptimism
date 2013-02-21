@@ -6,17 +6,18 @@ import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.artemis.annotations.Mapper;
 import com.artemis.utils.ImmutableBag;
+import com.optimism.components.Body;
 import com.optimism.components.Position;
 
 
 public class CollisionSystem extends EntitySystem {
 
 	@Mapper ComponentMapper<Position> pm;
-	//@Mapper ComponentMapper<Body> bm;
+	@Mapper ComponentMapper<Body> bm;
 	
 	@SuppressWarnings("unchecked")
 	public CollisionSystem() {
-		super(Aspect.getAspectForAll(Position.class /*, Body.class*/));
+		super(Aspect.getAspectForAll(Position.class, Body.class));
 	}
 
 	@Override
