@@ -70,9 +70,15 @@ public class CollisionSystem extends EntitySystem {
 			
 			if(dm.getSafe(e2) != null){
 				
-				hm.get(e1).lose(dm.get(e2).damage);
-				e2.deleteFromWorld();
+				if(bm.get(e1).team != bm.get(e2).team){
 				
+					hm.get(e1).lose(dm.get(e2).damage);
+					e2.deleteFromWorld();
+					
+					if (hm.get(e1).dead()) {
+						e1.deleteFromWorld();
+					}
+				}
 			}
 			
 		}
@@ -81,8 +87,16 @@ public class CollisionSystem extends EntitySystem {
 			
 			if(dm.getSafe(e1) != null){
 				
-				hm.get(e2).lose(dm.get(e1).damage);
-				e1.deleteFromWorld();
+				if(bm.get(e1).team != bm.get(e2).team){
+					
+					hm.get(e2).lose(dm.get(e1).damage);
+				
+					e1.deleteFromWorld();
+					
+					if (hm.get(e2).dead()) {
+						e2.deleteFromWorld();
+					}
+				}
 				
 			}
 			

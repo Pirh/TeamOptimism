@@ -16,4 +16,8 @@ public class Health extends Component{
 	public void lose(int i){
 		this.health = this.health - i;
 	}
+	
+	public boolean dead() {
+		return this.health <= 0;
+	}
 }

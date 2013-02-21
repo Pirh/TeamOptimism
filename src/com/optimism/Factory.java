@@ -6,6 +6,7 @@ import com.optimism.collision.Circle;
 import com.optimism.components.Body;
 import com.optimism.components.Controllable;
 import com.optimism.components.Damage;
+import com.optimism.components.Health;
 import com.optimism.components.Img;
 import com.optimism.components.OrbitRing;
 import com.optimism.components.Orientation;
@@ -18,9 +19,21 @@ import com.optimism.components.Weapon;
 
 public class Factory {
 	
-	public static Body simpleBody(double radius) {
+	public static Entity playerShip(World world, Position pos) {
+		return makeShip(world, pos, new Size(48,48), "res/player-ship.png", 10, 1, true);
+	}
+	public static Entity playerBullet(World world, Position pos, Velocity vel) {
+		return makeBullet(world, pos, vel, "res/player-bullet.png", 6, 1, Body.Team.ALLY);
+	}
+	public static Entity enemyBlueShip(World world, Position pos) {
+		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", 12, 3, false);
+	}
+	
+	
+	
+	public static Body simpleBody(double radius, Body.Team team) {
 		Circle circle = new Circle(new Vec(0,0), radius);
-		return new Body(circle);
+		return new Body(team, circle);
 	}
 	
 	/** Makes the centre ring */
@@ -45,14 +58,16 @@ public class Factory {
 	}
 
 	/** Makes a ship. No it really honestly does. */
-	public static Entity makeShip(World world, Position pos, Size size, String imageName, boolean isPlayer) {
+	public static Entity makeShip(World world, Position pos, Size size, String imageName, double radius, int health, boolean isPlayer) {
 		Entity ship = world.createEntity();
 		Img img = new Img(imageName);
 		ship.addComponent(pos);
 		ship.addComponent(size);
 		ship.addComponent(new Velocity(0,0));
 		ship.addComponent(img);
-		ship.addComponent(simpleBody(size.x*0.375));
+		Body.Team team = (isPlayer) ? Body.Team.ALLY : Body.Team.ENEMY;
+		ship.addComponent(simpleBody(radius, team));
+		ship.addComponent(new Health(health));
 		ship.addComponent(new Weapon(Settings.firingRate));
 		Orientation ori = new Orientation(0);
 		ship.addComponent(ori);
@@ -69,13 +84,13 @@ public class Factory {
 		Vec stretch = new Vec(0,Settings.circleRadius);
 		for (int i=0; i<n; i++) {
 			Vec pos = new Vec(Settings.circleCentre).add(stretch);
-			makeShip(world, new Position(pos), new Size(48,48), "res/player-ship.png", true);
+			playerShip(world, new Position(pos));
 			stretch.rotate(angle);
 		}
 	}
 	
 	/** Makes a bullet. */
-	public static Entity makeBullet(World world, Position pos, Velocity vel, String image, int damage) {
+	public static Entity makeBullet(World world, Position pos, Velocity vel, String image, double radius, int damage, Body.Team team) {
 		Entity bullet = world.createEntity();
 		bullet.addComponent(pos);
 		bullet.addComponent(vel);
@@ -83,6 +98,7 @@ public class Factory {
 		bullet.addComponent(new Img(image));
 		bullet.addComponent(new Damage(damage));
 		bullet.addComponent(new Orientation(vel.angle()));
+		bullet.addComponent(simpleBody(radius, team));
 		bullet.addToWorld();
 		return bullet;
 	}
