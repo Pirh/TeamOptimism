@@ -6,6 +6,7 @@ import com.optimism.collision.Circle;
 import com.optimism.components.Body;
 import com.optimism.components.Controllable;
 import com.optimism.components.Img;
+import com.optimism.components.OrbitRing;
 import com.optimism.components.Position;
 import com.optimism.components.Size;
 import com.optimism.components.Vec;
@@ -17,6 +18,15 @@ public class Factory {
 	public static Body simpleBody(double radius) {
 		Circle circle = new Circle(new Vec(0,0), radius);
 		return new Body(circle);
+	}
+	
+	/** Makes the centre ring */
+	public static Entity makeOrbitRing(World world, Position pos, double radius) {
+		Entity ring = world.createEntity();
+		ring.addComponent(pos);
+		ring.addComponent(new OrbitRing(radius));
+		ring.addToWorld();
+		return ring;
 	}
 
 	/** Makes a ship. No it really honestly does. */
@@ -41,7 +51,7 @@ public class Factory {
 		Vec stretch = new Vec(0,Arena.circleRadius);
 		for (int i=0; i<n; i++) {
 			Vec pos = new Vec(Arena.circleCentre).add(stretch);
-			makeShip(world, new Position(pos), new Size(64,64), "res/player-ship.png", true);
+			makeShip(world, new Position(pos), new Size(48,48), "res/player-ship.png", true);
 			stretch.rotate(angle);
 		}
 	}

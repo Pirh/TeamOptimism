@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 
 import com.artemis.World;
 import com.optimism.components.Img;
+import com.optimism.components.Position;
 import com.optimism.input.Input;
 import com.optimism.systems.MovementSystem;
+import com.optimism.systems.OrbitRenderSystem;
 import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.RenderSystem;
 
@@ -92,6 +94,7 @@ public class Game extends Canvas {
 		// The world has some systems.
 		world.setSystem(new PlayerControlSystem(input));
 		world.setSystem(new MovementSystem());
+		world.setSystem(new OrbitRenderSystem(g));
 		world.setSystem(new RenderSystem(g));
 		
 		// We initialise it after we make all the systems
@@ -99,6 +102,8 @@ public class Game extends Canvas {
 		
 		// We make the player
 		Factory.makeShipCircle(world, 2, 250);
+		// And the orbit
+		Factory.makeOrbitRing(world, new Position(Arena.circleCentre), Arena.circleRadius);
 	}
 	
 	
