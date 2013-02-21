@@ -12,6 +12,7 @@ import com.optimism.components.Position;
 import com.optimism.components.Size;
 import com.optimism.components.Vec;
 import com.optimism.components.Velocity;
+import com.optimism.components.Weapon;
 
 
 public class Factory {
@@ -39,6 +40,7 @@ public class Factory {
 		ship.addComponent(new Velocity(0,0));
 		ship.addComponent(img);
 		ship.addComponent(simpleBody(size.x/2));
+		ship.addComponent(new Weapon(Settings.firingRate));
 		if (isPlayer) {
 			ship.addComponent(Controllable.FLAG);
 		}
@@ -49,9 +51,9 @@ public class Factory {
 	/** Makes a circle of ships. */
 	public static void makeShipCircle(World world, int n, double distance) {
 		double angle = (2*Math.PI) / n;
-		Vec stretch = new Vec(0,Arena.circleRadius);
+		Vec stretch = new Vec(0,Settings.circleRadius);
 		for (int i=0; i<n; i++) {
-			Vec pos = new Vec(Arena.circleCentre).add(stretch);
+			Vec pos = new Vec(Settings.circleCentre).add(stretch);
 			makeShip(world, new Position(pos), new Size(48,48), "res/player-ship.png", true);
 			stretch.rotate(angle);
 		}

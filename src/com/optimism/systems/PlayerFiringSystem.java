@@ -5,11 +5,12 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
-import com.optimism.Arena;
+import com.optimism.Settings;
 import com.optimism.Factory;
 import com.optimism.components.Controllable;
 import com.optimism.components.Position;
 import com.optimism.components.Velocity;
+import com.optimism.components.Weapon;
 import com.optimism.input.Input;
 import com.optimism.tools.Tool;
 
@@ -19,6 +20,7 @@ public class PlayerFiringSystem extends EntityProcessingSystem {
 	private Input input;
 	
 	@Mapper ComponentMapper<Position> pm;
+	@Mapper ComponentMapper<Weapon> wm;
 	
 	@SuppressWarnings("unchecked")
 	public PlayerFiringSystem(Input input) {
@@ -28,12 +30,14 @@ public class PlayerFiringSystem extends EntityProcessingSystem {
 	
 	@Override
 	public void process(Entity entity) {
-		if (input.isKeyDown(32)) {
-			Tool.print("Firing!");
+		Weapon wep = wm.get(entity);
+		if (input.isKeyDown(32) && wep.ready()) {
 			Position pos = pm.get(entity);
-			Velocity vel = new Velocity(Arena.circleCentre.copy().sub(pos).normalize().mul(100));
-			Entity bullet = Factory.makeBullet(world, new Position(pos), vel, "res/player-bullet.png", 1);
+			Velocity vel = new Velocity(Settings.circleCentre.copy().sub(pos).normalize().mul(Settings.bulletSpeed));
+			Factory.makeBullet(world, new Position(pos), vel, "res/player-bullet.png", 1);
+			wep.fired();
 		}
+		wep.reload(world.getDelta());
 	}
 
 }

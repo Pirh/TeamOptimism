@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 
 public class Img extends Component {
 
-	private BufferedImage sprite;
-	private static HashMap<String,BufferedImage> cache;
+	public BufferedImage sprite;
+	private static HashMap<String,BufferedImage> cache = new HashMap<String,BufferedImage>();
 		
 	public Img(BufferedImage img) {
 		this.sprite = img;
