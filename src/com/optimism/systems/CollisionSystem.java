@@ -41,8 +41,13 @@ public class CollisionSystem extends EntitySystem {
 		for(int i1 = 0; i1 < entities.size(); i1++){
 			
 			for(int i2 = i1 + 1; i2 < entities.size(); i2++){
-				
-				boolean collided = Col.detect(bm.get(entities.get(i1)), pm.get(entities.get(i1)), bm.get(entities.get(i2)), pm.get(entities.get(i2)));
+
+				boolean collided = Col.detect(
+						entities.get(i1).getComponent(Body.class),
+						entities.get(i1).getComponent(Position.class),
+						entities.get(i2).getComponent(Body.class),
+						entities.get(i2).getComponent(Position.class)
+						);
 				
 				if(collided){
 					collide(entities.get(i1), entities.get(i2));
@@ -56,7 +61,7 @@ public class CollisionSystem extends EntitySystem {
 	
 	
 	
-	private void collide(Entity entity, Entity entity2) {
+	protected void collide(Entity entity, Entity entity2) {
 		//Collide here!
 	}
 	

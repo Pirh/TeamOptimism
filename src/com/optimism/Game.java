@@ -20,6 +20,7 @@ import com.optimism.components.Img;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
+import com.optimism.systems.DebugBodySystem;
 import com.optimism.systems.DebugInputSystem;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.PlayerControlSystem;
@@ -99,6 +100,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world.setSystem(new MovementSystem());
 		world.setSystem(new CollisionSystem());
 		world.setSystem(new RenderSystem(g));
+		world.setSystem(new DebugBodySystem(g, input));
 		world.setSystem(new DebugInputSystem(g, input));
 		
 		// We initialise it after we make all the systems
