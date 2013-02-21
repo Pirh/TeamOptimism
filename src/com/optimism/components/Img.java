@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class Img extends Component {
 
 	private BufferedImage sprite;
-	private HashMap<String,BufferedImage>( cache;
+	private HashMap<String,BufferedImage> cache;
 		
 	public Img(BufferedImage img) {
 		this.sprite = img;
