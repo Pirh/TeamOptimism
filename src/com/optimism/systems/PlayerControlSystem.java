@@ -30,7 +30,6 @@ public class PlayerControlSystem extends EntityProcessingSystem {
 		double dTheta = 0;
 		if (input.isKeyDown(KeyEvent.VK_LEFT)) {
 			dTheta = 0.2;
-			System.out.println("Lefty");
 		} else if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
 			dTheta = -0.2;
 		}
