@@ -5,6 +5,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
+import com.optimism.Projector;
 import com.optimism.components.Orientation;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
@@ -26,6 +27,14 @@ public class MovementSystem extends EntityProcessingSystem {
 	public void process(Entity entity) {
 		float dt = world.getDelta();
 		Position pos = pm.get(entity);  // Get the position of an entity
+		
+		double distanceFromOrigin = pos.copy().sub(Projector.centre).length();
+		if (distanceFromOrigin > 500) {
+			// Entity is out of view, kill it dead.
+			entity.deleteFromWorld();
+			return;
+		}
+		
 		Velocity vel = vm.get(entity);  // Get the velocity of an entity
 		pos.add(new Vec(vel).mul(dt));	// Add velocity * deltaTime
 		
