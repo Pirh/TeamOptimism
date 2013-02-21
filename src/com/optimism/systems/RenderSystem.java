@@ -11,6 +11,7 @@ import com.optimism.Projector;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
 import com.optimism.components.Size;
+import com.optimism.input.Input;
 import com.optimism.tools.Tuple2Int;
 
 

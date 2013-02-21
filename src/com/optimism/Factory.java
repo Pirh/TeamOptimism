@@ -5,6 +5,7 @@ import com.artemis.World;
 import com.optimism.collision.Circle;
 import com.optimism.components.Body;
 import com.optimism.components.Controllable;
+import com.optimism.components.Damage;
 import com.optimism.components.Img;
 import com.optimism.components.OrbitRing;
 import com.optimism.components.Position;
@@ -54,6 +55,18 @@ public class Factory {
 			makeShip(world, new Position(pos), new Size(48,48), "res/player-ship.png", true);
 			stretch.rotate(angle);
 		}
+	}
+	
+	/** Makes a bullet. */
+	public static Entity makeBullet(World world, Position pos, Velocity vel, String image, int damage) {
+		Entity bullet = world.createEntity();
+		bullet.addComponent(pos);
+		bullet.addComponent(vel);
+		bullet.addComponent(new Size(16,16));
+		bullet.addComponent(new Img(image));
+		bullet.addComponent(new Damage(damage));
+		bullet.addToWorld();
+		return bullet;
 	}
 	
 }

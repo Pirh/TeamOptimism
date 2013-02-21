@@ -30,9 +30,9 @@ public class PlayerControlSystem extends EntityProcessingSystem {
 	public void process(Entity entity) {
 		double dTheta = 0;
 		if (input.isKeyDown(KeyEvent.VK_LEFT)) {
-			dTheta = 1;
-		} else if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
 			dTheta = -1;
+		} else if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
+			dTheta = 1;
 		}
 		dTheta *= world.getDelta();
 		Position pos = pm.get(entity);
