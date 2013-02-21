@@ -1,0 +1,30 @@
+package com.optimism.systems;
+
+import com.artemis.Aspect;
+import com.artemis.ComponentMapper;
+import com.artemis.Entity;
+import com.artemis.annotations.Mapper;
+import com.artemis.systems.EntityProcessingSystem;
+import com.optimism.components.Position;
+import com.optimism.components.Velocity;
+
+@SuppressWarnings("unchecked")
+public class MovementSystem extends EntityProcessingSystem {
+	
+	// This auto-creates some ComponentMappers. This is the fastest way to get components.
+	@Mapper ComponentMapper<Position> pm;
+	@Mapper ComponentMapper<Velocity> vm;
+
+	public MovementSystem() {
+		super(Aspect.getAspectForAll(Position.class, Velocity.class));	// This line decides which entities to care about.
+	}
+	
+	@Override
+	public void process(Entity entity) {
+		Position pos = pm.get(entity);  // Get the position of an entity
+		Velocity vel = vm.get(entity);  // Get the velocity of an entity
+		pos.add(vel);					// Straight up add the velocity to the position
+		System.out.println(pos);
+	}
+	
+}

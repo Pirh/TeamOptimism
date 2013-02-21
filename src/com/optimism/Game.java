@@ -11,6 +11,14 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.artemis.Entity;
+import com.artemis.World;
+import com.optimism.components.Position;
+import com.optimism.components.Velocity;
+import com.optimism.systems.MovementSystem;
+
+
+
 public class Game extends Canvas {
 	
 	
@@ -25,6 +33,7 @@ public class Game extends Canvas {
 	private int frameWidth = 800;
 	private int frameHeight = 600;
 	
+	private World world;
 	
 	
 	public static void main(String[] args) {
@@ -67,6 +76,22 @@ public class Game extends Canvas {
 		//Centre frame.
 		frame.setLocationRelativeTo(null);
 		
+		// The game has a World
+		world = new World();
+		
+		// The world has some systems.
+		world.setSystem(new MovementSystem());
+		
+		// We initialize it after we make all the systems
+		world.initialize();
+		
+		// We make an entity
+		Entity ship = world.createEntity();
+		// Add some components to it
+		ship.addComponent(new Position(400,300));
+		ship.addComponent(new Velocity(10,10));
+		// This adds the ship into the world
+		ship.addToWorld();
 	}
 	
 	
@@ -76,6 +101,10 @@ public class Game extends Canvas {
 		while (true) {
 			
 			clear();
+			
+			// Runs all the systems
+			world.process();
+			
 			buffStrategy.show();
 			
 			try {
