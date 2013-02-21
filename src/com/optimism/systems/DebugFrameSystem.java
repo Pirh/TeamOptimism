@@ -15,7 +15,9 @@ public class DebugFrameSystem extends VoidEntitySystem {
 	private Graphics g;
 	private Input input;
 	private int frameWidth;
-
+	private String sDelta = "";
+	private String sFPS = "";
+	private int limit = 0;
 
 
 	public DebugFrameSystem(Graphics g, Input input, int frameWidth){
@@ -30,21 +32,29 @@ public class DebugFrameSystem extends VoidEntitySystem {
 
 	@Override
 	protected void processSystem() {
+
+		limit++;
 		
-		
-		if(input.isKeyToggle(113)){
+		if(limit == 1) {
+
+			sDelta = String.format("Delta: %.7f", world.delta);
+			sFPS = String.format("FPS: %.2f", (1 / world.delta));
 			
-			//Font font = new Font("Serif", Font.BOLD, 8);
-			//g.setFont(font);
+		}else if(limit >= (int)((1 / world.delta) / 4)){
+			
+			limit = 0;
+			
+		}
+		
+		
+		if(input.isKeyToggle(113)) {
+			
 			g.setColor(Color.GREEN);
-			//g.drawString("Frame", frameWidth - ("Frame".length() * 8), 1 * 16);
-			//g.drawString("====", frameWidth - ("====".length() * 8), 2 * 16);
-			//g.drawString("Delta: ", frameWidth - ("Delta:".length() * 8), 3 * 16);
-			//g.drawString("FPS: ", frameWidth - ("FPS: ".length() * 8), 4 * 16);
-			g.drawString("Frame", 8, (-1 * 16 + 600));
-			g.drawString("====", 8, (-2 * 16 + 600));
-			g.drawString("Delta: " + world.delta, 8, (-3 * 16 + 600));
-			g.drawString("FPS: " + (1 / world.delta), 8, (-4 * 16 + 600));
+			g.setFont(new Font("courier", 0, 12));
+			g.drawString("Frame", frameWidth - ("Frame".length() * 8), 1 * 16);
+			g.drawString("====", frameWidth - ("====".length() * 8), 2 * 16);
+			g.drawString(sDelta, frameWidth - (sDelta.length() * 7), 3 * 16);
+			g.drawString(sFPS, frameWidth - (sFPS.length() * 7), 4 * 16);
 			
 		}
 		

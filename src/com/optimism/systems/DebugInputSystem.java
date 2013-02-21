@@ -1,6 +1,7 @@
 package com.optimism.systems;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import com.artemis.systems.VoidEntitySystem;
@@ -30,8 +31,9 @@ public class DebugInputSystem extends VoidEntitySystem {
 		
 		
 		if(input.isKeyToggle(112)){
-			
+
 			g.setColor(Color.GREEN);
+			g.setFont(new Font("courier", 0, 12));
 			g.drawString("Input", 8, (1 * 16));
 			g.drawString("=====", 8, (2 * 16));
 			g.drawString("Keys down: " + input.getKeyDown(), 8, (3 * 16));

@@ -38,7 +38,7 @@ public class DebugBodySystem extends CollisionSystem {
 
 					Vec vec = body.getCircle(i2).loc.copy().add(entity.getComponent(Position.class));
 					double rad = body.getCircle(i2).rad;
-					
+
 					g.setColor(Color.GREEN);
 					g.fillOval(
 							(int)(vec.x - rad),
