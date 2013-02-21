@@ -18,9 +18,11 @@ import javax.swing.JPanel;
 import com.artemis.World;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
+import com.optimism.components.Size;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
+import com.optimism.systems.DebugBodySystem;
 import com.optimism.systems.DebugInputSystem;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.OrbitRenderSystem;
@@ -30,6 +32,7 @@ import com.optimism.systems.RenderSystem;
 import com.optimism.tools.Tool;
 
 
+@SuppressWarnings("serial")
 public class Game extends Canvas implements KeyListener, MouseListener, MouseMotionListener{
 	
 	private static Game game = new Game();
@@ -104,6 +107,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world.setSystem(new CollisionSystem());
 		world.setSystem(new OrbitRenderSystem(g));
 		world.setSystem(new RenderSystem(g));
+		world.setSystem(new DebugBodySystem(g, input));
 		world.setSystem(new DebugInputSystem(g, input));
 		
 		// We initialise it after we make all the systems
@@ -111,6 +115,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		// We make the player
 		Factory.makeShipCircle(world, 2, 250);
+		Factory.makeShip(world, new Position(400,100), new Size(48,48), "res/player-ship.png", false);
 		// And the orbit
 		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
 

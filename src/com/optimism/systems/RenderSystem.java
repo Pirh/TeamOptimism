@@ -1,6 +1,5 @@
 package com.optimism.systems;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import com.artemis.Aspect;
@@ -13,7 +12,6 @@ import com.optimism.components.Img;
 import com.optimism.components.Orientation;
 import com.optimism.components.Position;
 import com.optimism.components.Size;
-import com.optimism.tools.Tool;
 import com.optimism.tools.Tuple2Int;
 
 
