@@ -50,6 +50,7 @@ public class Input{
 			setKeyTogglable.add(27);
 			setKeyTogglable.add(112);
 			setKeyTogglable.add(113);
+			setKeyTogglable.add(114);
 		}
 
 		setKeyDown.clear();

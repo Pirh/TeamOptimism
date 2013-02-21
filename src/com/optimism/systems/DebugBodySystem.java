@@ -27,7 +27,7 @@ public class DebugBodySystem extends CollisionSystem {
 	@Override
 	protected void processEntities(ImmutableBag<Entity> entities) {
 		
-		if(input.isKeyToggle(113)){
+		if(input.isKeyToggle(114)){
 		
 			for(int i1 = 0; i1 < entities.size(); i1++){
 			
@@ -59,7 +59,7 @@ public class DebugBodySystem extends CollisionSystem {
 	@Override
 	public void collide(Entity e1, Entity e2) {
 		
-		if(input.isKeyToggle(113)){
+		if(input.isKeyToggle(114)){
 			
 			Body body = e1.getComponent(Body.class);
 			
