@@ -1,7 +1,6 @@
 package com.optimism;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.WindowAdapter;
@@ -12,8 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.artemis.World;
+import com.optimism.components.Img;
 import com.optimism.input.Input;
 import com.optimism.systems.MovementSystem;
+import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.RenderSystem;
 
 
@@ -33,6 +34,8 @@ public class Game extends Canvas {
 	private double timeCurrent = 0;
 	private double timeLast = 0;
 	private float delta = 0;
+	
+	private Img background = new Img("res/background.png");
 	
 	private World world;
 	
@@ -87,6 +90,7 @@ public class Game extends Canvas {
 		world = new World();
 		
 		// The world has some systems.
+		world.setSystem(new PlayerControlSystem(input));
 		world.setSystem(new MovementSystem());
 		world.setSystem(new RenderSystem(g));
 		
@@ -130,8 +134,7 @@ public class Game extends Canvas {
 	
 	public void clear(){
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, frameWidth, frameHeight);
+		g.drawImage(background.sprite, 0, 0, null);
 		
 	}
 	
