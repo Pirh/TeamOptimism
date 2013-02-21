@@ -109,7 +109,7 @@ public class Game extends Canvas {
 			
 			clear();
 			
-			//Delta Stuff 1
+			//Delta calculation
 			timeCurrent = System.nanoTime();
 			delta = (float) ((timeCurrent - timeLast) / 1000000000);
 			timeLast = timeCurrent;
@@ -119,7 +119,6 @@ public class Game extends Canvas {
 
 			// Runs all the systems
 			world.process();
-			System.out.println(delta);
 			
 			buffStrategy.show();
 			
