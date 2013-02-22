@@ -144,13 +144,6 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	public void initialize() {
 		
-		Entity e = world.createEntity();
-		e.addComponent(new Text("lol"));
-		e.addComponent(new Position(50, 50));
-		e.addComponent(new Clickable());
-		e.addComponent(new Size(30,30));
-		e.addToWorld();
-		
 		Factory.makeBlackHole(world, 150);
 		Entity[] ships = Factory.makeShipCircle(world, 1, 250);
 		Factory.enemyBlueShip(world, new Position(400,400));

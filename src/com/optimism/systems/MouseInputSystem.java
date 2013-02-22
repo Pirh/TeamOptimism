@@ -15,11 +15,14 @@ import com.optimism.tools.Tuple2Int;
 
 public class MouseInputSystem extends EntityProcessingSystem {
 	
+	
+	
 	private Input input = new Input();
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Size> sm;
 	@Mapper ComponentMapper<Clickable> cm;
+	
 	
 	
 	@SuppressWarnings("unchecked")
@@ -31,6 +34,8 @@ public class MouseInputSystem extends EntityProcessingSystem {
 		
 	}
 	
+	
+	
 	@Override
 	public void process(Entity entity) {
 		
@@ -40,20 +45,21 @@ public class MouseInputSystem extends EntityProcessingSystem {
 		Tuple2Int screenPos = Projector.worldToScreen(pos);
 		Tuple2Int screenSize = Projector.worldToScreen(size);
 		
-		
-		cm.get(entity).makeClicked(true);
+		cm.get(entity).makeClicked(isClicked(screenPos, screenSize));
 		
 	}
 	
-	public boolean isClicked(Tuple2Int screenPos, Tuple2Int screenSize, Entity entity){
+	
+	
+	public boolean isClicked(Tuple2Int screenPos, Tuple2Int screenSize){
 		
 		
 		if(input.isMouseDown(1)){
 			
-			if( (screenPos.getX() < input.mousePosX) && (input.mousePosX < screenSize.getX()) ){
-				
-				if( (screenPos.getY() < input.mousePosY) && (input.mousePosY < screenSize.getY()) ){
-					
+			if( (screenPos.getX() <= input.mousePosX) && (input.mousePosX <= (screenPos.getX() + screenSize.getX())) ){
+
+				if( (screenPos.getY() >= input.mousePosY) && (input.mousePosY >= (screenPos.getY() - screenSize.getY())) ){
+
 					return true;
 					
 				}
@@ -63,6 +69,7 @@ public class MouseInputSystem extends EntityProcessingSystem {
 		}
 		
 		return false;
+		
 		
 	}
 	
