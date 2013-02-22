@@ -114,7 +114,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world = new World();
 		
 		//Initialize
-		Sound s = new Sound();
+		Sound s = new Sound();	//MUST STAY!
 		initialize();
 		
 		// The world has some systems.
