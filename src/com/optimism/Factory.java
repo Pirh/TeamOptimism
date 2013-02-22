@@ -57,7 +57,7 @@ public class Factory {
 		hole.addComponent(new Orientation(0, 0.1));
 		hole.addComponent(new Img("res/wormhole.png"));
 		hole.addComponent(new Health(1<<30));
-		hole.addComponent(new Score(1<<63));
+		hole.addComponent(new Score(1L<<62));
 		hole.addComponent(simpleBody(8, Body.Team.ENEMY));
 		hole.addToWorld();
 		return hole;

@@ -21,6 +21,7 @@ import com.artemis.World;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
 import com.optimism.components.Size;
+import com.optimism.components.Text;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -113,6 +114,10 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		//Initialize
 		initialize();
+		data.scoreBanner = world.createEntity();
+		data.scoreBanner.addComponent(new Position(400,20));
+		data.scoreBanner.addComponent(new Text(""+data.score));
+		data.scoreBanner.addToWorld();
 		
 		// The world has some systems.
 		world.setSystem(new PlayerControlSystem(input));
