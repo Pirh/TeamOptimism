@@ -5,15 +5,13 @@ import com.artemis.systems.VoidEntitySystem;
 import com.optimism.Factory;
 import com.optimism.GameData;
 import com.optimism.Settings;
-import com.optimism.tools.Tool;
 
 
 public class UpgradeSystem extends VoidEntitySystem {
 
 	private GameData data;
-	private long previousScore = 0;
 	
-	private long[] levelMilestones = new long[] {200, 500, 1000, 2000, 5000, 1<<63};
+	private long[] levelMilestones = new long[] {200, 500, 1000, 2000, 5000, 1<<30};
 	
 
 	public UpgradeSystem(GameData data) {
@@ -26,7 +24,6 @@ public class UpgradeSystem extends VoidEntitySystem {
 		if (data.score >= nextLevel) {
 			levelUp();
 		}
-		previousScore = data.score;
 	}
 	
 	private void levelUp() {
