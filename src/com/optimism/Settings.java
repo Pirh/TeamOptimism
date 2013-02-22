@@ -13,5 +13,7 @@ public class Settings {
 	public static final double enemySpeed = 25;
 	public static final double spawnRadius = 100;
 	public static final double spawnRate = 0.02;
+	
+	public static final int inputHack = 1;
 
 }

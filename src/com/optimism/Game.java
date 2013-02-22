@@ -20,7 +20,6 @@ import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
-import com.optimism.input.HackInput;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -61,7 +60,6 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	private World world;
 	private GameData data;
-	private HackInput hackInput = new HackInput();
 	
 	
 	public static void main(String[] args) {
@@ -96,7 +94,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		requestFocus();
 		
-		createBufferStrategy(2);
+		createBufferStrategy(3);
 		buffStrategy = getBufferStrategy();
 		
 		Projector.initialize(frameWidth, frameHeight);
@@ -116,8 +114,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		initialize();
 		
 		// The world has some systems.
-		world.setSystem(new PlayerControlSystem(hackInput));
-		world.setSystem(new PlayerFiringSystem(hackInput));
+		world.setSystem(new PlayerControlSystem(input));
+		world.setSystem(new PlayerFiringSystem(input));
 		world.setSystem(new MovementSystem());
 		world.setSystem(new CollisionSystem(data));
 		
@@ -171,7 +169,6 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 			try {
 				input.update(frame);
 			} catch (Exception e) {}
-			hackInput.decrement();
 			
 			
 			// Set the delta
@@ -204,19 +201,9 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	//Events are passed to corresponding method in FrameInput along with input.
 	public void keyPressed(KeyEvent e) {
 		sorter.keyPressed(e, input);
-		switch (e.getKeyCode()) {
-		case 32: hackInput.spaceHack = 32; break;
-		case 37: hackInput.leftHack = 32; break;
-		case 39: hackInput.rightHack = 32; break;
-		}
 	}
 	public void keyReleased(KeyEvent e) {
     	sorter.keyReleased(e, input);
-    	switch (e.getKeyCode()) {
-		case 32: hackInput.spaceHack = 2; break;
-		case 37: hackInput.leftHack = 2; break;
-		case 39: hackInput.rightHack = 2; break;
-		}
 	}
 	
 	public void keyTyped(KeyEvent e) {
