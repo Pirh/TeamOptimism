@@ -31,7 +31,7 @@ public class GameData {
 	}
 	
 	public void loseHealth(long amount) {
-		planetHealth += amount;
+		planetHealth -= amount;
 		eHealth.addComponent(new Text("Planet health: " + planetHealth));
 	}
 
