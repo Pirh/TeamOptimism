@@ -16,9 +16,13 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.artemis.Entity;
 import com.artemis.World;
+import com.optimism.components.Clickable;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
+import com.optimism.components.Size;
+import com.optimism.components.Text;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -26,11 +30,13 @@ import com.optimism.systems.DebugBodySystem;
 import com.optimism.systems.DebugFrameSystem;
 import com.optimism.systems.DebugInputSystem;
 import com.optimism.systems.EnemySpawnSystem;
+import com.optimism.systems.MouseInputSystem;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.OrbitRenderSystem;
 import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
+import com.optimism.systems.RenderTextSystem;
 import com.optimism.tools.Tool;
 
 
@@ -114,6 +120,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world.setSystem(new OrbitRenderSystem(g));
 		world.setSystem(new EnemySpawnSystem());
 		world.setSystem(new RenderSystem(g));
+		world.setSystem(new RenderTextSystem(g));
+		world.setSystem(new MouseInputSystem(input));
 		world.setSystem(new DebugBodySystem(g, input));
 		world.setSystem(new DebugInputSystem(g, input));
 		world.setSystem(new DebugFrameSystem(g, input, frameWidth));
@@ -134,6 +142,13 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	
 	public void initialize() {
+		
+		Entity e = world.createEntity();
+		e.addComponent(new Text("lol"));
+		e.addComponent(new Position(50, 50));
+		e.addComponent(new Clickable());
+		e.addComponent(new Size(30,30));
+		e.addToWorld();
 		
 		Factory.makeBlackHole(world, 150);
 		Factory.makeShipCircle(world, 3, 250);
