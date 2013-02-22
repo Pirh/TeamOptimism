@@ -37,6 +37,7 @@ import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
 import com.optimism.systems.RenderTextSystem;
 import com.optimism.systems.UpgradeSystem;
+import com.optimism.tools.Sound;
 
 
 @SuppressWarnings("serial")
@@ -113,6 +114,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world = new World();
 		
 		//Initialize
+		Sound s = new Sound();
 		initialize();
 		
 		// The world has some systems.

@@ -14,6 +14,7 @@ import com.optimism.components.Damage;
 import com.optimism.components.Health;
 import com.optimism.components.Position;
 import com.optimism.components.Score;
+import com.optimism.tools.Sound;
 import com.optimism.tools.Tool;
 
 
@@ -71,7 +72,6 @@ public class CollisionSystem extends EntitySystem {
 	
 	
 	protected void collide(Entity e1, Entity e2, boolean recurse) {
-
 		Health health = hm.getSafe(e1);
 		
 		if (health != null) {
@@ -85,6 +85,7 @@ public class CollisionSystem extends EntitySystem {
 				
 					health.lose(damage.damage);
 					e2.deleteFromWorld();
+					Sound.play(1);
 					
 					if (health.dead()) {
 						Score score = sm.getSafe(e1);
