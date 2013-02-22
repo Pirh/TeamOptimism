@@ -18,11 +18,8 @@ import javax.swing.JPanel;
 
 import com.artemis.Entity;
 import com.artemis.World;
-import com.optimism.components.Clickable;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
-import com.optimism.components.Size;
-import com.optimism.components.Text;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -96,7 +93,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		requestFocus();
 		
-		createBufferStrategy(2);
+		createBufferStrategy(3);
 		buffStrategy = getBufferStrategy();
 		
 		Projector.initialize(frameWidth, frameHeight);
