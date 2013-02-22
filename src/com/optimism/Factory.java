@@ -1,7 +1,5 @@
 package com.optimism;
 
-import java.util.Random;
-
 import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.collision.Circle;
@@ -13,6 +11,7 @@ import com.optimism.components.Img;
 import com.optimism.components.OrbitRing;
 import com.optimism.components.Orientation;
 import com.optimism.components.Position;
+import com.optimism.components.Score;
 import com.optimism.components.Size;
 import com.optimism.components.Vec;
 import com.optimism.components.Velocity;
@@ -22,39 +21,16 @@ import com.optimism.components.Weapon;
 public class Factory {
 	
 	public static Entity playerShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(48,48), "res/player-ship.png", 0.0, 10, 1, true);
+		return makeShip(world, pos, new Size(48,48), "res/player-ship.png", 0.0, 10, 1, true, 0);
 	}
 	public static Entity playerBullet(World world, Position pos, Velocity vel) {
 		return makeBullet(world, pos, vel, "res/player-bullet.png", 6, 1, Body.Team.ALLY);
 	}
 	public static Entity enemyBlueShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", -16.0, 12, 2, false);
+		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", -16.0, 12, 2, false, 20);
 	}
 	public static Entity enemyRedShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(48,48), "res/enemy-red.png", -24.0, 16, 4, false);
-	}
-	
-	
-	private static Entity randomEnemyKind(World world) {
-		Random r = new Random();
-		int enemyKind = r.nextInt(2);
-		double randAngle = r.nextFloat()*Math.PI*2;
-		double randRadius = r.nextFloat()*Settings.spawnRadius;
-		Position pos = new Position(Settings.circleCentre.copy().add(new Vec(0,randRadius).rotate(randAngle)));
-		Entity enemy;
-		switch (enemyKind) {
-		case 1: enemy = enemyRedShip(world, pos); break;
-		default: enemy = enemyBlueShip(world, pos); break;
-		}
-		return enemy;
-	}
-	public static Entity randomEnemy(World world) {
-		Random r = new Random();
-		Entity enemy = randomEnemyKind(world);
-		double randAngle = r.nextFloat()*Math.PI*2;
-		Velocity vel = new Velocity(new Vec(0,Settings.enemySpeed).rotate(randAngle));
-		enemy.addComponent(vel);
-		return enemy;
+		return makeShip(world, pos, new Size(48,48), "res/enemy-red.png", -24.0, 16, 4, false, 50);
 	}
 	
 	
@@ -87,7 +63,16 @@ public class Factory {
 	}
 
 	/** Makes a ship. No it really honestly does. */
-	public static Entity makeShip(World world, Position pos, Size size, String imageName, double spin, double radius, int health, boolean isPlayer) {
+	public static Entity makeShip(
+			World world,
+			Position pos,
+			Size size,
+			String imageName,
+			double spin, 
+			double radius,
+			int health,
+			boolean isPlayer,
+			long score) {
 		Entity ship = world.createEntity();
 		Img img = new Img(imageName);
 		ship.addComponent(pos);
@@ -103,19 +88,24 @@ public class Factory {
 		if (isPlayer) {
 			ship.addComponent(Controllable.FLAG);
 		}
+		if (score > 0) {
+			ship.addComponent(new Score(score));
+		}
 		ship.addToWorld();
 		return ship;		
 	}
 	
 	/** Makes a circle of ships. */
-	public static void makeShipCircle(World world, int n, double distance) {
+	public static Entity[] makeShipCircle(World world, int n, double distance) {
+		Entity[] ships = new Entity[n];
 		double angle = (2*Math.PI) / n;
 		Vec stretch = new Vec(0,Settings.circleRadius);
 		for (int i=0; i<n; i++) {
 			Vec pos = new Vec(Settings.circleCentre).add(stretch);
-			playerShip(world, new Position(pos));
+			ships[i] = playerShip(world, new Position(pos));
 			stretch.rotate(angle);
 		}
+		return ships;
 	}
 	
 	/** Makes a bullet. */
