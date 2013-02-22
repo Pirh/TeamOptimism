@@ -5,7 +5,6 @@ import com.artemis.systems.VoidEntitySystem;
 import com.optimism.Factory;
 import com.optimism.GameData;
 import com.optimism.Settings;
-import com.optimism.tools.Tool;
 
 
 public class UpgradeSystem extends VoidEntitySystem {
