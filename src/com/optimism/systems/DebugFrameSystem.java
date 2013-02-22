@@ -6,7 +6,6 @@ import java.awt.Graphics;
 
 import com.artemis.systems.VoidEntitySystem;
 import com.optimism.input.Input;
-import com.optimism.tools.Tool;
 
 
 public class DebugFrameSystem extends VoidEntitySystem {

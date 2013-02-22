@@ -20,6 +20,7 @@ import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
+import com.optimism.components.Size;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -145,6 +146,12 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	
 	public void initialize() {
+		
+		Entity e = world.createEntity();
+		e.addComponent(new Img("res/HUD.png"));
+		e.addComponent(new Position(400,38));
+		e.addComponent(new Size(810,79));
+		e.addToWorld();
 		
 		Factory.makeBlackHole(world, 150);
 		Entity[] ships = Factory.makeShipCircle(world, 2, 250);
