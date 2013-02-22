@@ -14,7 +14,6 @@ import com.optimism.components.Damage;
 import com.optimism.components.Health;
 import com.optimism.components.Position;
 import com.optimism.components.Score;
-import com.optimism.tools.Tool;
 
 
 public class CollisionSystem extends EntitySystem {
@@ -91,7 +90,6 @@ public class CollisionSystem extends EntitySystem {
 						if (score != null) {
 							data.score += score.amount;
 							score.amount = 0;
-							Tool.print(String.format("Score: %d", data.score));
 						}
 						e1.deleteFromWorld();
 					}

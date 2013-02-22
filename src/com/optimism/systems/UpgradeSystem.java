@@ -13,7 +13,7 @@ public class UpgradeSystem extends VoidEntitySystem {
 	private GameData data;
 	private long previousScore = 0;
 	
-	private long[] newShipMilestones = new long[] {200, 500, 1000};
+	private long[] levelMilestones = new long[] {200, 500, 1000, 2000, 5000, 1<<63};
 	
 
 	public UpgradeSystem(GameData data) {
@@ -22,18 +22,20 @@ public class UpgradeSystem extends VoidEntitySystem {
 	
 	@Override
 	protected void processSystem() {
-		for (int i=0; i<newShipMilestones.length; i++) {
-			long milestone = newShipMilestones[i];
-			if (previousScore < milestone && data.score >= milestone) {
-				increaseShipNumber();
-			}
+		long nextLevel = levelMilestones[data.level];
+		if (data.score >= nextLevel) {
+			levelUp();
 		}
-		
 		previousScore = data.score;
 	}
 	
-	private void increaseShipNumber() {
-		Tool.print("Ships up!");
+	private void levelUp() {
+		data.level += 1;
+		
+		addShip();
+	}
+
+	private void addShip() {
 		int numShips = data.players.length + 1;
 		Entity[] newPlayers = Factory.makeShipCircle(world, numShips, Settings.circleRadius);
 		data.replacePlayers(newPlayers);

@@ -3,7 +3,7 @@ package com.optimism;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -18,11 +18,8 @@ import javax.swing.JPanel;
 
 import com.artemis.Entity;
 import com.artemis.World;
-import com.optimism.components.Clickable;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
-import com.optimism.components.Size;
-import com.optimism.components.Text;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
 import com.optimism.systems.CollisionSystem;
@@ -37,6 +34,7 @@ import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
 import com.optimism.systems.RenderTextSystem;
+import com.optimism.systems.UpgradeSystem;
 
 
 @SuppressWarnings("serial")
@@ -49,7 +47,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	private Input input = new Input();
 	private Sorter sorter = new Sorter();
 	
-	private Graphics2D g;
+	private Graphics g;
 	private BufferStrategy buffStrategy;
 	
 	private int frameWidth = 800;
@@ -101,7 +99,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		Projector.initialize(frameWidth, frameHeight);
 		
-		g = (Graphics2D) buffStrategy.getDrawGraphics();
+		g = buffStrategy.getDrawGraphics();
 		g.setFont(new Font("courier", 0, 12));
 		g.drawString("Loading...", 400, 300);
 		
@@ -120,12 +118,16 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world.setSystem(new PlayerFiringSystem(input));
 		world.setSystem(new MovementSystem());
 		world.setSystem(new CollisionSystem(data));
-		world.setSystem(new OrbitRenderSystem(g));
+		
+		world.setSystem(new UpgradeSystem(data));
 		world.setSystem(new EnemySpawnSystem(data));
+		
+		world.setSystem(new OrbitRenderSystem(g));
 		world.setSystem(new RenderSystem(g));
 		world.setSystem(new RenderTextSystem(g));
+		
 		world.setSystem(new MouseInputSystem(input));
-		world.setSystem(new DebugBodySystem(data, g, input));
+
 		world.setSystem(new DebugBodySystem(data, g, input));
 		world.setSystem(new DebugInputSystem(g, input));
 		world.setSystem(new DebugFrameSystem(g, input, frameWidth));
@@ -145,7 +147,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	public void initialize() {
 		
 		Factory.makeBlackHole(world, 150);
-		Entity[] ships = Factory.makeShipCircle(world, 1, 250);
+		Entity[] ships = Factory.makeShipCircle(world, 2, 250);
 		Factory.enemyBlueShip(world, new Position(400,400));
 		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
 		data = new GameData(ships);

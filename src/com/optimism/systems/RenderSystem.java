@@ -1,5 +1,6 @@
 package com.optimism.systems;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import com.artemis.Aspect;
@@ -17,7 +18,7 @@ import com.optimism.tools.Tuple2Int;
 
 public class RenderSystem extends EntityProcessingSystem {
 	
-	private Graphics2D graphics;
+	private Graphics graphics;
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Orientation> om;
@@ -26,7 +27,7 @@ public class RenderSystem extends EntityProcessingSystem {
 	
 	
 	@SuppressWarnings("unchecked")
-	public RenderSystem(Graphics2D graphics) {
+	public RenderSystem(Graphics graphics) {
 		super(Aspect.getAspectForAll(Position.class, Img.class, Size.class));
 		this.graphics = graphics;
 	}

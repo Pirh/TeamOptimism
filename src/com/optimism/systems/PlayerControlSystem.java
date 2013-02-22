@@ -1,7 +1,5 @@
 package com.optimism.systems;
 
-import java.awt.event.KeyEvent;
-
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
@@ -18,6 +16,7 @@ import com.optimism.input.Input;
 public class PlayerControlSystem extends EntityProcessingSystem {
 	
 	private Input input;
+	private int motion = 0;
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Orientation> om;
@@ -30,13 +29,14 @@ public class PlayerControlSystem extends EntityProcessingSystem {
 	
 	@Override
 	public void process(Entity entity) {
-		double dTheta = 0;
-		if (input.isKeyDown(KeyEvent.VK_LEFT)) {
-			dTheta = -1;
-		} else if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
-			dTheta = 1;
+		if (input.isKeyDown(37)) {
+			motion = -Settings.inputHack;
+		} else if (input.isKeyDown(39)) {
+			motion = Settings.inputHack;
+		} else {
+			motion -= Math.signum(motion);
 		}
-		dTheta *= world.getDelta() * Settings.moveSpeed;
+		double dTheta = Math.signum(motion) * world.getDelta() * Settings.moveSpeed;
 		Position pos = pm.get(entity);
 		Vec stretch = pos.copy().sub(Settings.circleCentre);
 		stretch.rotate(dTheta);
