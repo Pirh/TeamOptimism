@@ -1,6 +1,7 @@
 package com.optimism;
 
 import com.artemis.Entity;
+import com.optimism.components.Text;
 
 
 public class GameData {
@@ -8,6 +9,8 @@ public class GameData {
 	public Entity[] players;
 	public long score = 0;
 	public int level = 0;
+	
+	public Entity scoreBanner;
 	
 	public GameData(Entity[] playerShips) {
 		this.players = playerShips;
@@ -18,6 +21,11 @@ public class GameData {
 			players[i].deleteFromWorld();
 		}
 		this.players = replacements;
+	}
+	
+	public void gainScore(long amount) {
+		score += amount;
+		scoreBanner.addComponent(new Text(""+score));
 	}
 
 }
