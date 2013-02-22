@@ -1,5 +1,6 @@
 package com.optimism.systems;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import com.artemis.Aspect;
@@ -15,14 +16,14 @@ import com.optimism.tools.Tuple2Int;
 
 public class RenderTextSystem extends EntityProcessingSystem {
 	
-	private Graphics2D graphics;
+	private Graphics graphics;
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Text> tm;
 	
 	
 	@SuppressWarnings("unchecked")
-	public RenderTextSystem(Graphics2D graphics) {
+	public RenderTextSystem(Graphics graphics) {
 		super(Aspect.getAspectForAll(Position.class, Text.class));
 		this.graphics = graphics;
 	}

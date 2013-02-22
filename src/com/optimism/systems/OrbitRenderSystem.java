@@ -1,7 +1,7 @@
 package com.optimism.systems;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -16,13 +16,13 @@ import com.optimism.tools.Tuple2Int;
 
 public class OrbitRenderSystem extends EntityProcessingSystem {
 	
-	private Graphics2D graphics;
+	private Graphics graphics;
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<OrbitRing> om;
 	
 	@SuppressWarnings("unchecked")
-	public OrbitRenderSystem(Graphics2D graphics) {
+	public OrbitRenderSystem(Graphics graphics) {
 		super(Aspect.getAspectForAll(Position.class, OrbitRing.class));
 		this.graphics = graphics;
 	}

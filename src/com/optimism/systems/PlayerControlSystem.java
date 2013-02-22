@@ -12,18 +12,18 @@ import com.optimism.components.Controllable;
 import com.optimism.components.Orientation;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
-import com.optimism.input.Input;
+import com.optimism.input.HackInput;
 
 
 public class PlayerControlSystem extends EntityProcessingSystem {
 	
-	private Input input;
+	private HackInput input;
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Orientation> om;
 	
 	@SuppressWarnings("unchecked")
-	public PlayerControlSystem(Input input) {
+	public PlayerControlSystem(HackInput input) {
 		super(Aspect.getAspectForAll(Position.class, Controllable.class));
 		this.input = input;
 	}
@@ -31,9 +31,9 @@ public class PlayerControlSystem extends EntityProcessingSystem {
 	@Override
 	public void process(Entity entity) {
 		double dTheta = 0;
-		if (input.isKeyDown(KeyEvent.VK_LEFT)) {
+		if (input.leftHack > 0) {
 			dTheta = -1;
-		} else if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
+		} else if (input.rightHack > 0) {
 			dTheta = 1;
 		}
 		dTheta *= world.getDelta() * Settings.moveSpeed;

@@ -7,6 +7,7 @@ public class GameData {
 	
 	public Entity[] players;
 	public long score = 0;
+	public int level = 0;
 	
 	public GameData(Entity[] playerShips) {
 		this.players = playerShips;
