@@ -31,7 +31,6 @@ import com.optimism.systems.OrbitRenderSystem;
 import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
-import com.optimism.tools.Tool;
 
 
 @SuppressWarnings("serial")
@@ -136,7 +135,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	public void initialize() {
 		
 		Factory.makeBlackHole(world, 150);
-		Factory.makeShipCircle(world, 3, 250);
+		Factory.makeShipCircle(world, 1, 250);
 		Factory.enemyBlueShip(world, new Position(400,400));
 		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
 		
@@ -157,9 +156,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 			//Update input
 			try {
 				input.update(frame);
-			} catch (Exception e) {
-				Tool.print("INPUT CRASHED! Tell James.");
-			}
+			} catch (Exception e) {}
+			
 			
 			// Set the delta
 			world.setDelta(delta);
