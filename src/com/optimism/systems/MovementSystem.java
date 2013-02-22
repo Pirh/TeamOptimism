@@ -6,6 +6,8 @@ import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
 import com.optimism.GameData;
+import com.optimism.Settings;
+import com.optimism.components.Health;
 import com.optimism.components.Orientation;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
@@ -19,6 +21,7 @@ public class MovementSystem extends EntityProcessingSystem {
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Velocity> vm;
 	@Mapper ComponentMapper<Orientation> om;
+	@Mapper ComponentMapper<Health> hm;
 	
 	private GameData data;
 
@@ -42,11 +45,16 @@ public class MovementSystem extends EntityProcessingSystem {
 		if (pos.x < 0 || pos.x > 800 || pos.y < 79 || pos.y > 600) {
 			// Entity is out of view, kill it dead.
 			entity.deleteFromWorld();
-			data.loseHealth(10);
-			if (data.planetHealth <= 0) {
-				throw new YourePureDeadException("Sorry mate.");
-			}
 			return;
+		}
+		double distanceFromCentre = pos.copy().sub(Settings.circleCentre).length();
+		Health health = hm.getSafe(entity);
+		if (distanceFromCentre > Settings.circleRadius && health != null) {
+			if (health.harmful) {
+				data.loseHealth(1);
+				data.hurt = 8;
+				health.harmful = false;
+			}
 		}
 		
 		Velocity vel = vm.get(entity);  // Get the velocity of an entity

@@ -4,9 +4,11 @@ import com.artemis.Component;
 
 public class Health extends Component{
 	private int health;
+	public boolean harmful;
 	
-	public Health(int h){
+	public Health(int h, boolean harmful){
 		this.health = h;
+		this.harmful = harmful;
 	}
 	
 	public void gain(int i){

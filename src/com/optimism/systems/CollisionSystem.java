@@ -92,6 +92,14 @@ public class CollisionSystem extends EntitySystem {
 							score.amount = 0;
 						}
 						e1.deleteFromWorld();
+						boolean allShipsDead = true;
+						for (Entity player: data.players) {
+							if (player.isActive()) {
+								allShipsDead = false;
+								break;
+							}
+						}
+						data.allShipsDead = allShipsDead;
 					}
 				}
 				

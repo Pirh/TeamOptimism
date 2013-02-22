@@ -38,7 +38,7 @@ public class RenderTextSystem extends EntityProcessingSystem {
 		Text str = tm.get(entity);
 		Tuple2Int screenPos = Projector.worldToScreen(pos);
 
-		g.setColor(Color.GREEN);
+		g.setColor(str.color);
 		g.setFont(new Font("arial", 0, 12));
 		g.drawString(str.getString(), screenPos.getX(), screenPos.getY());
 		
