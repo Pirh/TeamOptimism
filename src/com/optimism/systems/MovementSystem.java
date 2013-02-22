@@ -6,7 +6,6 @@ import com.artemis.Entity;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
 import com.optimism.GameData;
-import com.optimism.Projector;
 import com.optimism.components.Orientation;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
@@ -35,13 +34,18 @@ public class MovementSystem extends EntityProcessingSystem {
 	public void process(Entity entity) {
 		float dt = world.getDelta();
 		Position pos = pm.get(entity);  // Get the position of an entity
+		if (pos == null) {
+			Tool.print("An entity is missing.");
+			return;
+		}
 		
-		double distanceFromOrigin = pos.copy().sub(Projector.centre).length();
-		if (distanceFromOrigin > 500) {
+		if (pos.x < 0 || pos.x > 800 || pos.y < 79 || pos.y > 600) {
 			// Entity is out of view, kill it dead.
 			entity.deleteFromWorld();
 			data.loseHealth(10);
-			Tool.print("" + data.planetHealth);
+			if (data.planetHealth <= 0) {
+				throw new YourePureDeadException("Sorry mate.");
+			}
 			return;
 		}
 		
@@ -54,4 +58,8 @@ public class MovementSystem extends EntityProcessingSystem {
 		}
 	}
 	
+}
+
+class YourePureDeadException extends RuntimeException {
+	public YourePureDeadException(String message) { super(message); }
 }

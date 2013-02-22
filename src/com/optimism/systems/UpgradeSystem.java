@@ -33,7 +33,7 @@ public class UpgradeSystem extends VoidEntitySystem {
 	}
 
 	private void addShip() {
-		int numShips = data.players.length + 1;
+		int numShips = data.level + 2;
 		Entity[] newPlayers = Factory.makeShipCircle(world, numShips, Settings.circleRadius);
 		data.replacePlayers(newPlayers);
 	}

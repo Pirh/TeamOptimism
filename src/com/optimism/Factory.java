@@ -21,16 +21,16 @@ import com.optimism.components.Weapon;
 public class Factory {
 	
 	public static Entity playerShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(48,48), "res/player-ship.png", 0.0, 10, 1, true, 0);
+		return makeShip(world, pos, new Size(48,48), "res/player-ship.png", 0.0, 10, 1, 0, true, 0);
 	}
 	public static Entity playerBullet(World world, Position pos, Velocity vel) {
 		return makeBullet(world, pos, vel, "res/player-bullet.png", 6, 1, Body.Team.ALLY);
 	}
 	public static Entity enemyBlueShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", -16.0, 12, 2, false, 20);
+		return makeShip(world, pos, new Size(32,32), "res/enemy-blue.png", -16.0, 12, 2, 0, false, 20);
 	}
 	public static Entity enemyRedShip(World world, Position pos) {
-		return makeShip(world, pos, new Size(48,48), "res/enemy-red.png", -24.0, 16, 4, false, 50);
+		return makeShip(world, pos, new Size(48,48), "res/enemy-red.png", -24.0, 16, 4, 0, false, 50);
 	}
 	
 	
@@ -72,6 +72,7 @@ public class Factory {
 			double spin, 
 			double radius,
 			int health,
+			int damage,
 			boolean isPlayer,
 			long score) {
 		Entity ship = world.createEntity();
@@ -91,6 +92,9 @@ public class Factory {
 		}
 		if (score > 0) {
 			ship.addComponent(new Score(score));
+		}
+		if (damage > 0) {
+			ship.addComponent(new Damage(damage));
 		}
 		ship.addToWorld();
 		return ship;		

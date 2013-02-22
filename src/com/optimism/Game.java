@@ -20,10 +20,12 @@ import com.artemis.Entity;
 import com.artemis.World;
 import com.optimism.components.Img;
 import com.optimism.components.Position;
+import com.optimism.components.Script;
 import com.optimism.components.Size;
 import com.optimism.components.Text;
 import com.optimism.input.Input;
 import com.optimism.input.Sorter;
+import com.optimism.scripts.TestScript;
 import com.optimism.systems.CollisionSystem;
 import com.optimism.systems.DebugBodySystem;
 import com.optimism.systems.DebugFrameSystem;
@@ -36,6 +38,7 @@ import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
 import com.optimism.systems.RenderTextSystem;
+import com.optimism.systems.ScriptSystem;
 import com.optimism.systems.UpgradeSystem;
 import com.optimism.tools.Sound;
 
@@ -63,6 +66,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	
 	private World world;
 	private GameData data;
+	private boolean paused = false;
 	
 	
 	public static void main(String[] args) {
@@ -71,6 +75,9 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 
 	}
 	
+	public static void restart() {
+		
+	}
 	
 	
 	public Game() {
@@ -121,6 +128,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		world.setSystem(new PlayerControlSystem(input));
 		world.setSystem(new PlayerFiringSystem(input));
 		world.setSystem(new MovementSystem(data));
+		world.setSystem(new ScriptSystem());
 		world.setSystem(new CollisionSystem(data));
 		
 		world.setSystem(new UpgradeSystem(data));
@@ -157,7 +165,6 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		e.addComponent(new Size(803,80));
 		e.addToWorld();
 		
-		//Black hole.
 		Factory.makeBlackHole(world, 150);
 		Entity[] ships = Factory.makeShipCircle(world, 2, 250);
 		Factory.enemyBlueShip(world, new Position(400,400));
