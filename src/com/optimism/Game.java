@@ -28,11 +28,13 @@ import com.optimism.systems.DebugBodySystem;
 import com.optimism.systems.DebugFrameSystem;
 import com.optimism.systems.DebugInputSystem;
 import com.optimism.systems.EnemySpawnSystem;
+import com.optimism.systems.MouseInputSystem;
 import com.optimism.systems.MovementSystem;
 import com.optimism.systems.OrbitRenderSystem;
 import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
+import com.optimism.systems.RenderTextSystem;
 import com.optimism.systems.UpgradeSystem;
 
 
@@ -114,17 +116,20 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		initialize();
 		
 		// The world has some systems.
-		world.setSystem(new PlayerControlSystem(input));
-		world.setSystem(new PlayerFiringSystem(input));
+		world.setSystem(new PlayerControlSystem(hackInput));
+		world.setSystem(new PlayerFiringSystem(hackInput));
 		world.setSystem(new MovementSystem());
 		world.setSystem(new CollisionSystem(data));
-		world.setSystem(new UpgradeSystem(data));
 		
+		world.setSystem(new UpgradeSystem(data));
 		world.setSystem(new EnemySpawnSystem(data));
 		
 		world.setSystem(new OrbitRenderSystem(g));
 		world.setSystem(new RenderSystem(g));
+		world.setSystem(new RenderTextSystem(g));
 		
+		world.setSystem(new MouseInputSystem(input));
+
 		world.setSystem(new DebugBodySystem(data, g, input));
 		world.setSystem(new DebugInputSystem(g, input));
 		world.setSystem(new DebugFrameSystem(g, input, frameWidth));
@@ -200,13 +205,18 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	public void keyPressed(KeyEvent e) {
 		sorter.keyPressed(e, input);
 		switch (e.getKeyCode()) {
-		case 32: hackInput.spaceHack = 2;
-		case 37: hackInput.leftHack = 2;
-		case 39: hackInput.rightHack = 2;
+		case 32: hackInput.spaceHack = 32; break;
+		case 37: hackInput.leftHack = 32; break;
+		case 39: hackInput.rightHack = 32; break;
 		}
 	}
 	public void keyReleased(KeyEvent e) {
     	sorter.keyReleased(e, input);
+    	switch (e.getKeyCode()) {
+		case 32: hackInput.spaceHack = 2; break;
+		case 37: hackInput.leftHack = 2; break;
+		case 39: hackInput.rightHack = 2; break;
+		}
 	}
 	
 	public void keyTyped(KeyEvent e) {

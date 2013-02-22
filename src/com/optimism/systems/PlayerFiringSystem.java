@@ -11,18 +11,18 @@ import com.optimism.components.Controllable;
 import com.optimism.components.Position;
 import com.optimism.components.Velocity;
 import com.optimism.components.Weapon;
-import com.optimism.input.Input;
+import com.optimism.input.HackInput;
 
 
 public class PlayerFiringSystem extends EntityProcessingSystem {
 	
-	private Input input;
+	private HackInput input;
 	
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Weapon> wm;
 	
 	@SuppressWarnings("unchecked")
-	public PlayerFiringSystem(Input input) {
+	public PlayerFiringSystem(HackInput input) {
 		super(Aspect.getAspectForAll(Position.class, Weapon.class, Controllable.class));
 		this.input = input;
 	}
@@ -30,7 +30,7 @@ public class PlayerFiringSystem extends EntityProcessingSystem {
 	@Override
 	public void process(Entity entity) {
 		Weapon wep = wm.get(entity);
-		if (input.isKeyDown(32) && wep.ready()) {
+		if (input.spaceHack > 0 && wep.ready()) {
 			Position pos = pm.get(entity);
 			Velocity vel = new Velocity(Settings.circleCentre.copy().sub(pos).normalize().mul(Settings.bulletSpeed));
 			Factory.playerBullet(world, new Position(pos), vel);
