@@ -6,11 +6,15 @@ import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.artemis.annotations.Mapper;
 import com.artemis.utils.ImmutableBag;
+import com.optimism.GameData;
 import com.optimism.collision.Col;
 import com.optimism.components.Body;
+import com.optimism.components.Body.Team;
 import com.optimism.components.Damage;
 import com.optimism.components.Health;
 import com.optimism.components.Position;
+import com.optimism.components.Score;
+import com.optimism.tools.Tool;
 
 
 public class CollisionSystem extends EntitySystem {
@@ -19,13 +23,15 @@ public class CollisionSystem extends EntitySystem {
 	@Mapper ComponentMapper<Body> bm;
 	@Mapper ComponentMapper<Health> hm;
 	@Mapper ComponentMapper<Damage> dm;
+	@Mapper ComponentMapper<Score> sm;
 	
+	private GameData data;
 	
 	@SuppressWarnings("unchecked")
-	public CollisionSystem() {
+	public CollisionSystem(GameData data) {
 		
 		super(Aspect.getAspectForAll(Position.class, Body.class));
-		
+		this.data = data;
 	}
 	
 	
@@ -53,7 +59,7 @@ public class CollisionSystem extends EntitySystem {
 						);
 				
 				if(collided){
-					collide(entities.get(i1), entities.get(i2));
+					collide(entities.get(i1), entities.get(i2), true);
 				}
 				
 			}
@@ -64,44 +70,40 @@ public class CollisionSystem extends EntitySystem {
 	
 	
 	
-	protected void collide(Entity e1, Entity e2) {
+	protected void collide(Entity e1, Entity e2, boolean recurse) {
 
-		if(hm.getSafe(e1) != null){
+		Health health = hm.getSafe(e1);
+		
+		if (health != null) {
 			
-			if(dm.getSafe(e2) != null){
+			Damage damage = dm.getSafe(e2);
+			if (damage != null) {
 				
-				if(bm.get(e1).team != bm.get(e2).team){
+				Team team1 = bm.get(e1).team;
+				Team team2 = bm.get(e2).team;
+				if (team1 != team2) {
 				
-					hm.get(e1).lose(dm.get(e2).damage);
+					health.lose(damage.damage);
 					e2.deleteFromWorld();
 					
-					if (hm.get(e1).dead()) {
+					if (health.dead()) {
+						Score score = sm.getSafe(e1);
+						if (score != null) {
+							data.score += score.amount;
+							score.amount = 0;
+							Tool.print(String.format("Score: %d", data.score));
+						}
 						e1.deleteFromWorld();
 					}
 				}
+				
+				return;
 			}
 			
 		}
-
-		if(hm.getSafe(e2) != null){
-			
-			if(dm.getSafe(e1) != null){
-				
-				if(bm.get(e1).team != bm.get(e2).team){
-					
-					hm.get(e2).lose(dm.get(e1).damage);
-				
-					e1.deleteFromWorld();
-					
-					if (hm.get(e2).dead()) {
-						e2.deleteFromWorld();
-					}
-				}
-				
-			}
-			
+		if (recurse) {
+			collide(e2, e1, false);
 		}
-		
 	}
 	
 	

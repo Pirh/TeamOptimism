@@ -37,7 +37,6 @@ import com.optimism.systems.PlayerControlSystem;
 import com.optimism.systems.PlayerFiringSystem;
 import com.optimism.systems.RenderSystem;
 import com.optimism.systems.RenderTextSystem;
-import com.optimism.tools.Tool;
 
 
 @SuppressWarnings("serial")
@@ -62,6 +61,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 	private Img background = new Img("res/background.png");
 	
 	private World world;
+	private GameData data;
 	
 	
 	public static void main(String[] args) {
@@ -112,25 +112,26 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		// The game has a World
 		world = new World();
 		
+		//Initialize
+		initialize();
+		
 		// The world has some systems.
 		world.setSystem(new PlayerControlSystem(input));
 		world.setSystem(new PlayerFiringSystem(input));
 		world.setSystem(new MovementSystem());
-		world.setSystem(new CollisionSystem());
+		world.setSystem(new CollisionSystem(data));
 		world.setSystem(new OrbitRenderSystem(g));
-		world.setSystem(new EnemySpawnSystem());
+		world.setSystem(new EnemySpawnSystem(data));
 		world.setSystem(new RenderSystem(g));
 		world.setSystem(new RenderTextSystem(g));
 		world.setSystem(new MouseInputSystem(input));
-		world.setSystem(new DebugBodySystem(g, input));
+		world.setSystem(new DebugBodySystem(data, g, input));
+		world.setSystem(new DebugBodySystem(data, g, input));
 		world.setSystem(new DebugInputSystem(g, input));
 		world.setSystem(new DebugFrameSystem(g, input, frameWidth));
 		
 		// We initialise it after we make all the systems
 		world.initialize();
-		
-		//Initialize
-		initialize();
 
 		//Tells frame to listen for all input events.
 		this.addKeyListener(this);
@@ -151,10 +152,10 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		e.addToWorld();
 		
 		Factory.makeBlackHole(world, 150);
-		Factory.makeShipCircle(world, 3, 250);
+		Entity[] ships = Factory.makeShipCircle(world, 1, 250);
 		Factory.enemyBlueShip(world, new Position(400,400));
 		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
-		
+		data = new GameData(ships);
 	}
 	
 	
@@ -172,9 +173,8 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 			//Update input
 			try {
 				input.update(frame);
-			} catch (Exception e) {
-				Tool.print("INPUT CRASHED! Tell James.");
-			}
+			} catch (Exception e) {}
+			
 			
 			// Set the delta
 			world.setDelta(delta);

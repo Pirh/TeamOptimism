@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import com.artemis.Entity;
 import com.artemis.utils.ImmutableBag;
+import com.optimism.GameData;
 import com.optimism.components.Body;
 import com.optimism.components.Position;
 import com.optimism.components.Vec;
@@ -17,8 +18,8 @@ public class DebugBodySystem extends CollisionSystem {
 	private Input input;
 
 
-	public DebugBodySystem(Graphics g, Input input){
-		super();
+	public DebugBodySystem(GameData data, Graphics g, Input input){
+		super(data);
 		this.g = g;
 		this.input = input;
 		
@@ -57,7 +58,7 @@ public class DebugBodySystem extends CollisionSystem {
 	}
 	
 	@Override
-	public void collide(Entity e1, Entity e2) {
+	public void collide(Entity e1, Entity e2, boolean recurse) {
 		
 		if(input.isKeyToggle(114)){
 			
