@@ -14,6 +14,7 @@ import com.optimism.components.Damage;
 import com.optimism.components.Health;
 import com.optimism.components.Position;
 import com.optimism.components.Score;
+import com.optimism.tools.Sound;
 
 
 public class CollisionSystem extends EntitySystem {
@@ -83,7 +84,7 @@ public class CollisionSystem extends EntitySystem {
 				
 					health.lose(damage.damage);
 					e2.deleteFromWorld();
-					//Sound.play(1);
+					//Sound.playBomb();
 					
 					if (health.dead()) {
 						Score score = sm.getSafe(e1);
