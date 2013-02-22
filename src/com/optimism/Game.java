@@ -96,7 +96,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		requestFocus();
 		
-		createBufferStrategy(2);
+		createBufferStrategy(3);
 		buffStrategy = getBufferStrategy();
 		
 		Projector.initialize(frameWidth, frameHeight);
