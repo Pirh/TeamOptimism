@@ -88,7 +88,7 @@ public class CollisionSystem extends EntitySystem {
 					if (health.dead()) {
 						Score score = sm.getSafe(e1);
 						if (score != null) {
-							data.score += score.amount;
+							data.gainScore(score.amount);
 							score.amount = 0;
 						}
 						e1.deleteFromWorld();
