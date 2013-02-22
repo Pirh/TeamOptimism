@@ -17,7 +17,7 @@ public class UpgradeSystem extends VoidEntitySystem {
 	private GameData data;
 	
 	private long[] levelMilestones = new long[] {150, 750, 2000, 5000, 10000, 1L<<62};
-	private long[] vanityMilestones = new long[] {40, 20000, 50000, 100000, 200000, 500000, 1000000};
+	private long[] vanityMilestones = new long[] {20000, 50000, 100000, 200000, 500000, 1000000};
 	
 	private long lastMilestone = 0;
 	

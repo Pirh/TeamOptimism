@@ -116,7 +116,7 @@ public class GameWindow extends Canvas implements KeyListener, MouseListener, Mo
 		frame.setLocationRelativeTo(null);
 		
 		//Initialize
-		Sound s = new Sound();	//MUST STAY!
+		//Sound s = new Sound();	//MUST STAY!
 
 		//Tells frame to listen for all input events.
 		this.addKeyListener(this);
