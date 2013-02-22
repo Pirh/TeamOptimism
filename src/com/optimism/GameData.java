@@ -8,9 +8,11 @@ public class GameData {
 	
 	public Entity[] players;
 	public long score = 0;
+	public int planetHealth = 100;
 	public int level = 0;
-	
-	public Entity scoreBanner;
+
+	public Entity eScore;
+	public Entity eHealth;
 	
 	public GameData(Entity[] playerShips) {
 		this.players = playerShips;
@@ -25,7 +27,12 @@ public class GameData {
 	
 	public void gainScore(long amount) {
 		score += amount;
-		scoreBanner.addComponent(new Text(""+score));
+		eScore.addComponent(new Text("Score: " + score));
+	}
+	
+	public void loseHealth(long amount) {
+		planetHealth += amount;
+		eHealth.addComponent(new Text("Planet health: " + planetHealth));
 	}
 
 }

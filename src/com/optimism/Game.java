@@ -114,10 +114,6 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		
 		//Initialize
 		initialize();
-		data.scoreBanner = world.createEntity();
-		data.scoreBanner.addComponent(new Position(400,20));
-		data.scoreBanner.addComponent(new Text(""+data.score));
-		data.scoreBanner.addToWorld();
 		
 		// The world has some systems.
 		world.setSystem(new PlayerControlSystem(input));
@@ -155,7 +151,7 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		Entity e = world.createEntity();
 		e.addComponent(new Img("res/HUD.png"));
 		e.addComponent(new Position(400,38));
-		e.addComponent(new Size(810,79));
+		e.addComponent(new Size(803,80));
 		e.addToWorld();
 		
 		Factory.makeBlackHole(world, 150);
@@ -163,6 +159,17 @@ public class Game extends Canvas implements KeyListener, MouseListener, MouseMot
 		Factory.enemyBlueShip(world, new Position(400,400));
 		Factory.makeOrbitRing(world, new Position(Settings.circleCentre), Settings.circleRadius);
 		data = new GameData(ships);
+		
+		data.eScore = world.createEntity();
+		data.eScore.addComponent(new Position(10,20));
+		data.eScore.addComponent(new Text("Score: " + data.score));
+		data.eScore.addToWorld();
+		
+		data.eHealth = world.createEntity();
+		data.eHealth.addComponent(new Position(10,40));
+		data.eHealth.addComponent(new Text("Planet health: " + data.planetHealth));
+		data.eHealth.addToWorld();
+		
 	}
 	
 	

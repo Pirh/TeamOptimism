@@ -1,5 +1,7 @@
 package com.optimism.systems;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -35,7 +37,9 @@ public class RenderTextSystem extends EntityProcessingSystem {
 		Position pos = pm.get(entity);
 		Text str = tm.get(entity);
 		Tuple2Int screenPos = Projector.worldToScreen(pos);
-		
+
+		g.setColor(Color.GREEN);
+		g.setFont(new Font("arial", 0, 12));
 		g.drawString(str.getString(), screenPos.getX(), screenPos.getY());
 		
 		g.dispose();	// Dispose of the copy.
